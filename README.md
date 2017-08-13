@@ -22,13 +22,12 @@ http://www.sistemaolimpo.org/regionais/results.php?eventID=3
 <a href="https://www.pololu.com/product/1425">- 8x Rodas Pololu 70x8mm</a><br>
 <a href="https://www.filipeflop.com/produto/acelerometro-e-giroscopio-3-eixos-6-dof-mpu-6050/">- 1x MPU6050 - Acelerômetro e Giroscópio</a><br>
 <a href="https://www.pololu.com/product/1134">- 4x Sharp Sensor Digital 2-10 cm</a><br>
-<a href="https://www.pololu.com/product/2464">- 4x Sharp Sensor Analógico 4-30 cm</a><br>
+<a href="https://www.pololu.com/product/2464">- 2x Sharp Sensor Analógico 4-30 cm</a><br>
 <a href="https://www.pololu.com/product/960">- 1x QTR Sensor Array Analógico</a><br>
 <a href="http://www.usinainfo.com.br/sensores-para-arduino/sensor-de-cor-para-arduino-tcs230-2810.html">- 2x TSC 230 - Sensor de Cor</a><br>
 <a href="http://produto.mercadolivre.com.br/MLB-876602966-bateria-lipo-turnigy-2200mah-3s-111v-20c-_JM">- 1x Bateria de Li-po 11.1V 3S</a><br>
 <a href="https://www.filipeflop.com/produto/servo-towerpro-mg995-metalico/">- 1x Servo MG995 15 kg.F.cm</a><br>
 <a href="https://www.filipeflop.com/produto/micro-servo-9g-sg90-towerpro/">- 1x Micro servo SG90 Tower Pro</a>
-
 
 
 <b>Integrantes:</b>
