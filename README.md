@@ -29,6 +29,12 @@ http://www.sistemaolimpo.org/regionais/results.php?eventID=3
 <a href="https://www.filipeflop.com/produto/servo-towerpro-mg995-metalico/">- 1x Servo MG995 15 kg.F.cm</a><br>
 <a href="https://www.filipeflop.com/produto/micro-servo-9g-sg90-towerpro/">- 1x Micro servo SG90 Tower Pro</a>
 
+<b>Fatores que serão melhorados/implementados para Etapa Estadual</b>
+- Inclusão de encoder nos motores para aperfeiçoar as verificações e curvas do robô<br>
+- Replanejamento dos sensores de distância para identificar as vítimas<br>
+- Aperfeiçoamento da mecânica geral do robô para melhorar o centro de massa e diminuir sua altura<br>
+- Aperfeiçoamento do mecanismo de recolher as vitímas<br>
+- Implementação do algoritmo de cálculo percentual de proximidade de cor para detectar melhor a fita verde
 
 <b>Integrantes:</b>
 - Felipe Oliveira Silva (18 anos - Programação / Eletrônica);
