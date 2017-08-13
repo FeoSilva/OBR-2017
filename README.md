@@ -12,8 +12,8 @@ http://www.sistemaolimpo.org/regionais/results.php?eventID=3
 
 <b>Divisões</b>
 - Mecânica (12 versões do robô feitas para etapa regional utilizando o SolidWorks)
-- Eletrônica (3 versões da Placa Principal para etapa regional)
-- Programação (45 versões do código até o final)
+- Eletrônica (3 versões da Placa Principal para etapa regional utilizando o Eagle)
+- Programação (45 versões do código até o final - Código em C++)
 
 <b>Componentes do robô:</b><br>
 <a href="https://store.arduino.cc/usa/arduino-mega-2560-rev3">- 1x Arduino Mega</a><br>
@@ -36,7 +36,7 @@ http://www.sistemaolimpo.org/regionais/results.php?eventID=3
 - Giovanna Ferreira Diodato (16 anos - Programação);
 - Felipe de Souza Tiozo (17 anos - Mecânica / Eletrônica);
 
-<div style="margin:auto; width:600px"><img src="https://github.com/FeoSilva/OBR-2017/blob/master/M%C3%ADdia/Equipe.jpg" width="600"/></div>
+<p align="center"><img src="https://github.com/FeoSilva/OBR-2017/blob/master/M%C3%ADdia/Equipe.jpg" width="600"/></p>
 
 
 
