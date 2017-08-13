@@ -36,7 +36,7 @@ http://www.sistemaolimpo.org/regionais/results.php?eventID=3
 - Giovanna Ferreira Diodato (16 anos - Programação);
 - Felipe de Souza Tiozo (17 anos - Mecânica / Eletrônica);
 
-<center><img src="https://github.com/FeoSilva/OBR-2017/blob/master/M%C3%ADdia/Equipe.jpg" width="600"/></center>
+<div style="margin:auto; width:600px"><img src="https://github.com/FeoSilva/OBR-2017/blob/master/M%C3%ADdia/Equipe.jpg" width="600"/></div>
 
 
 
