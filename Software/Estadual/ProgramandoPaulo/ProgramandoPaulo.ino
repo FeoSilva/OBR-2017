@@ -35,6 +35,7 @@ void setup() {
 
   Serial.begin(115200);
 
+  
   // SETUP DE TUDO
   ligarMotores(); // ligar motores
   ligarSharpDigital();
@@ -79,6 +80,7 @@ void setup() {
 
 
 void loop() {
-
-
+  Serial.println(analogRead(A5));
+  //mover(150, 150);
+  //lerTodosSensores();
 }

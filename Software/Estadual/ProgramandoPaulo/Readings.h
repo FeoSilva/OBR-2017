@@ -267,7 +267,7 @@ String allsensors;
 void lerTodosSensores() {
   
   allsensors = "";
-  /*allsensors += lerQTR(1);
+  allsensors += lerQTR(1);
   allsensors += " ";
   allsensors += lerQTR(2);
   allsensors += " ";
@@ -282,23 +282,10 @@ void lerTodosSensores() {
   allsensors += lerQTR(7);
   allsensors += " ";
   allsensors += lerQTR(8);
-  */
-  allsensors += " / ESQUERDA R: ";
-    allsensors += lerSensorVerde(ESQUERDA, R);
-    allsensors += " / ESQUERDA G: ";
-    allsensors += lerSensorVerde(ESQUERDA, G);
-    allsensors += " / ESQUERDA B: ";
-    allsensors += lerSensorVerde(ESQUERDA, B);
-    allsensors += " / DIREITA R: ";
-    allsensors += lerSensorVerde(DIREITA, R);
-    allsensors += " / DIREITA G: ";
-    allsensors += lerSensorVerde(DIREITA, G);
-    allsensors += " / DIREITA B: ";
-    allsensors += lerSensorVerde(DIREITA, B);
   /*allsensors += " / Botao: ";
   allsensors += lerBtnRedutor();*/
-  /*allsensors += " / Todos QTR: ";
-  allsensors += lerTodosQTR();*/
+  allsensors += " / Todos QTR: ";
+  allsensors += lerTodosQTR();
 
 
   Serial.println(allsensors);
