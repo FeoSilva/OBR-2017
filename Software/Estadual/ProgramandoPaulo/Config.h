@@ -13,8 +13,8 @@
 #define MotorEsquerdoTras 3
 
 // Motor DIREITO DIANTEIRO
-#define MotorDireitoFrente 5
-#define MotorDireitoTras 6
+#define MotorDireitoFrente 6
+#define MotorDireitoTras 5
 
 
 
@@ -68,44 +68,6 @@ QTRSensorsAnalog qtra((unsigned char[]) {
 },
 NUM_SENSORS, NUM_SAMPLES_PER_SENSOR);
 unsigned int sensorValues[NUM_SENSORS];
-
-
-
-#define Left_s0  47    //Connection Pins Color sensor - Left
-#define Left_s1  49
-#define Left_s2  43
-#define Left_s3  45
-#define Left_out 41
-
-#define Right_s0  37    //Connection Pins Color sensor - Right  
-#define Right_s1  39
-#define Right_s2  33
-#define Right_s3  31
-#define Right_out 35
-
-
-int Right_green = 0;    // variable to store the value coming from the right sensor
-int Left_green = 0;   // variable to store the value coming from the right sensor
-
-void ligarSensoresCor() {
-  pinMode(Right_s0, OUTPUT);  //Setting Pins Color sensor - Right
-  pinMode(Right_s1, OUTPUT);
-  pinMode(Right_s2, OUTPUT);
-  pinMode(Right_s3, OUTPUT);
-  pinMode(Right_out, INPUT);
-  //================================================================
-  pinMode(Left_s0, OUTPUT);  //Setting Pins Color sensor - Left
-  pinMode(Left_s1, OUTPUT);
-  pinMode(Left_s2, OUTPUT);
-  pinMode(Left_s3, OUTPUT);
-  pinMode(Left_out, INPUT);
-
-  digitalWrite(Right_s0, HIGH);  //Setting frequency color sensor - Right
-  digitalWrite(Right_s1, LOW);
-  //============================================================================
-  digitalWrite(Left_s0, HIGH); //Setting frequency color sensor - Left
-  digitalWrite(Left_s1, LOW);
-}
 
 
 // SENSORES SHARP 4-30cm

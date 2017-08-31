@@ -215,7 +215,7 @@ void Seguidor(boolean condicao) {
 
   while (condicao == true) {
 
-    if (verificaRampa() == true) {
+    /*if (verificaRampa() == true) {
       Serial.println("******************************* RAMPA *****************************");
       pararMotores();
       delay(300);
@@ -266,7 +266,7 @@ void Seguidor(boolean condicao) {
 
 
 
-    }
+    }*/
     // SEGUIDOR DE LINHA P.I.D.
     PID(KP, KI, KD, forcaPID, setPoint);
 

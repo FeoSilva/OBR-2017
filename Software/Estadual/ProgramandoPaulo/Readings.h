@@ -93,93 +93,13 @@ int lerSensorVerde(int lado, int rgb) {
 
   // LER SENSOR VERDE DA ESQUERDA
   if (lado == ESQUERDA) {
-    if (rgb == R) {
-
-      // Reading R
-      digitalWrite(Left_s2, LOW);
-      digitalWrite(Left_s3, LOW);
-
-      Left_green = pulseIn(Left_out, digitalRead(Left_out) == HIGH ? LOW : HIGH);
-      //Left_green = map(Left_green, 25, 70, 255, 0);
-
-    }
-    if (rgb == G) {
-
-      // Reading G
-      digitalWrite(Left_s2, HIGH);
-      digitalWrite(Left_s3, HIGH);
-
-      Left_green = pulseIn(Left_out, digitalRead(Left_out) == HIGH ? LOW : HIGH);
-      //Left_green = map(Left_green, 30, 90, 255, 0);
-
-    }
-
-    if (rgb == B) {
-
-      // Reading B
-      digitalWrite(Left_s2, LOW);
-      digitalWrite(Left_s3, HIGH);
-
-      Left_green = pulseIn(Left_out, digitalRead(Left_out) == HIGH ? LOW : HIGH);
-      //Left_green = map(Left_green, 25, 70, 255, 0);
-
-
-    }
-    /*if (Left_green < 0) {
-      Left_green = 0;
-    } else if (Left_green > 255) {
-      Left_green = 255;
-    }*/
-    //delay(100);
-    return Left_green;
+    
     
   }
 
 
   // LER SENSOR VERDE DA DIREITA
   if (lado == DIREITA) {
-
-    if (rgb == R) {
-
-      // Reading R
-      digitalWrite(Right_s2, LOW);
-      digitalWrite(Right_s3, LOW);
-
-      Right_green = pulseIn(Right_out, digitalRead(Right_out) == HIGH ? LOW : HIGH);
-      //Right_green = map(Right_green, 15, 90, 255, 0);
-
-
-    }
-    if (rgb == G) {
-
-      // Reading G
-      digitalWrite(Right_s2, HIGH);
-      digitalWrite(Right_s3, HIGH);
-
-      Right_green = pulseIn(Right_out, digitalRead(Right_out) == HIGH ? LOW : HIGH);
-      //Right_green = map(Right_green, 15, 101, 255, 0);
-
-    }
-
-    if (rgb == B) {
-
-      // Reading B
-      digitalWrite(Right_s2, LOW);
-      digitalWrite(Right_s3, HIGH);
-
-      Right_green = pulseIn(Right_out, digitalRead(Right_out) == HIGH ? LOW : HIGH);
-      //Right_green = map(Right_green, 25, 70, 255, 0);
-
-
-    }
-    /*if (Right_green < 0) {
-      Right_green = 0;
-    } else if (Right_green > 255) {
-      Right_green = 255;
-    }*/
-    //delay(50);
-    return Right_green;
-
 
 
   }

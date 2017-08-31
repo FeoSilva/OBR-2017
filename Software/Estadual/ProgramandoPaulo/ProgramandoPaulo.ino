@@ -39,7 +39,6 @@ void setup() {
   // SETUP DE TUDO
   ligarMotores(); // ligar motores
   ligarSharpDigital();
-  ligarSensoresCor();
   Servo1.attach(servo1);
   Servo1.write(180);
   Servo2.attach(servo2);
@@ -80,7 +79,10 @@ void setup() {
 
 
 void loop() {
-  Serial.println(analogRead(A5));
-  //mover(150, 150);
+  PID(0.15, 0, 0.2, 75, 3500);
+  //mover(100, 100);
+  //Serial.println(analogRead(A5));
+  //mover(-150, -150);
   //lerTodosSensores();
+  //Seguidor(true);
 }
