@@ -434,18 +434,18 @@ void Obstaculo(int lado) {
 
   // Anda pra frente até NÃO encontrar mais objeto
   if (lado == ESQUERDA) {
-    while (lerSharpDigital(4) == 1) {
-      LED4.turnOn();
-      mover(forca, forca);
-    }
+//    while (lerSharpDigital(4) == 1) {
+  //    LED4.turnOn();
+    //  mover(forca, forca);
+    //}
     LED4.turnOff();
   }
 
   if (lado == DIREITA) {
-    while (lerSharpDigital(3) == 1) {
-      LED4.turnOn();
-      mover(forca, forca);
-    }
+//    while (lerSharpDigital(3) == 1) {
+  //    LED4.turnOn();
+    //  mover(forca, forca);
+    //}
     LED4.turnOff();
   }  
   pararMotores();
@@ -473,28 +473,28 @@ void Obstaculo(int lado) {
 
   if (lado == ESQUERDA) {
     LED4.turnOn();
-    while (lerSharpDigital(4) == 0) {
-      mover(forca_Baixa, forca_Baixa);
-    }
+//    while (lerSharpDigital(4) == 0) {
+  //    mover(forca_Baixa, forca_Baixa);
+    //}
     LED4.turnOff();
     pararMotores();
     delay(300);
-    while (lerSharpDigital(4) == 1) {
-      mover(forca_Baixa, forca_Baixa);
-    }
+//    while (lerSharpDigital(4) == 1) {
+  //    mover(forca_Baixa, forca_Baixa);
+    //}
     LED4.turnOff();
   }
   if (lado == DIREITA) {
     LED4.turnOn();
-    while (lerSharpDigital(3) == 0) {
-      mover(forca, forca);
-    }
+//    while (lerSharpDigital(3) == 0) {
+  //    mover(forca, forca);
+   // }
     LED4.turnOff();
     pararMotores();
     delay(300);
-    while (lerSharpDigital(3) == 1) {
-      mover(forca, forca);
-    }
+    //while (lerSharpDigital(3) == 1) {
+    //  mover(forca, forca);
+   // }
     LED4.turnOff();
   }
 

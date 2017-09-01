@@ -125,17 +125,6 @@ int lerSharp(int pino) {
   return analogRead(Sharp[pino]);
 }
 
-int lerSharpDigital(int pino) {
-
-  /*if (pino == 4) {
-    return digitalRead(Sharp_Digital[pino]);
-    }*/
-  if (digitalRead(Sharp_Digital[pino]) == 1) {
-    return 0;
-  } else if (digitalRead(Sharp_Digital[pino]) == 0) {
-    return 1;
-  }
-}
 
 int lerBtnRedutor() {
   return digitalRead(BTN_REDUTOR);
@@ -182,33 +171,45 @@ double lendoMpuGyro() {
 
 }
 
-String allsensors;
 
 void lerTodosSensores() {
   
-  allsensors = "";
-  allsensors += lerQTR(1);
-  allsensors += " ";
-  allsensors += lerQTR(2);
-  allsensors += " ";
-  allsensors += lerQTR(3);
-  allsensors += " ";
-  allsensors += lerQTR(4);
-  allsensors += " ";
-  allsensors += lerQTR(5);
-  allsensors += " ";
-  allsensors += lerQTR(6);
-  allsensors += " ";
-  allsensors += lerQTR(7);
-  allsensors += " ";
-  allsensors += lerQTR(8);
-  /*allsensors += " / Botao: ";
-  allsensors += lerBtnRedutor();*/
-  allsensors += " / Todos QTR: ";
-  allsensors += lerTodosQTR();
+  Serial.print(lerQTR(1));
+  Serial.print(" ");
+  Serial.print(lerQTR(2));
+  Serial.print(" ");
+  Serial.print(lerQTR(3));
+  Serial.print(" ");
+  Serial.print(lerQTR(4));
+  Serial.print(" ");
+  Serial.print(lerQTR(5));
+  Serial.print(" ");
+  Serial.print(lerQTR(6));
+  Serial.print(" ");
+  Serial.print(lerQTR(7));
+  Serial.print(" ");
+  Serial.print(lerQTR(8));
+  Serial.print(" / ");
+  Serial.print(lerTodosQTR());
+  Serial.print(" --- E: ");
+  Serial.print(lerSharp(1));
+  
+  Serial.print(" | FC: ");
+  Serial.print(lerSharp(2));
+  
+  Serial.print(" | D: ");
+  Serial.print(lerSharp(3));
+  
+  Serial.print(" | FB: ");
+  Serial.print(lerSharp(4));
 
+  
+  Serial.print(" | FE: ");
+  Serial.print(lerSharp(5));
 
-  Serial.println(allsensors);
+  Serial.print(" | FD: ");
+  Serial.print(lerSharp(6));
+  
   Serial.println();
   //delay(250);
 }

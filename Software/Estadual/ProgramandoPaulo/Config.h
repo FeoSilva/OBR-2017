@@ -71,37 +71,25 @@ unsigned int sensorValues[NUM_SENSORS];
 
 
 // SENSORES SHARP 4-30cm
-#define sharp1     A4 // SENSOR BAIXO
-#define sharp2     A2 // SENSOR CIMA
+#define sharp1     A3 // SENSOR ESQUERDA
+#define sharp2     A2 // SENSOR FRENTE - CIMA
+#define sharp3     A1 // SENSOR DIREITA
+#define sharp4     A0 // SENSOR FRENTE - BAIXO
+#define sharp5     A15 // SENSOR FRENTE - 
+#define sharp6     A13 // SENSOR FRENTE - DIREITA
 
 int Sharp[] {
   0,
   sharp1,
   sharp2,
+  sharp3,
+  sharp4,
+  sharp5,
+  sharp6
 };
 
-#define sharp1_digital 9 // esquerda frente
-#define sharp2_digital 8 // direita frente
-#define sharp3_digital A1 // esquerda
-#define sharp4_digital A3 // direita
 
 
-
-int Sharp_Digital[] {
-  0,
-  sharp1_digital,
-  sharp2_digital,
-  sharp3_digital,
-  sharp4_digital,
-};
-
-void ligarSharpDigital() {
-  
-  pinMode(sharp1_digital,INPUT_PULLUP);
-  pinMode(sharp2_digital,INPUT_PULLUP);
-  pinMode(sharp3_digital,INPUT_PULLUP);
-  pinMode(sharp4_digital,INPUT_PULLUP);
-}
 // Tensão Bateria
 #define VBAT    A0 // SENSOR DE TENSÃO DA BATERIA
 #define VOLTAGE_LOW   11.5 // Tensão mínima

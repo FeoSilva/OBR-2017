@@ -173,9 +173,9 @@ boolean verificaVerde(int lado) {
 
 boolean verificaRampa() {
 
-  if(lerSharpDigital(3) == 1 && lerSharpDigital(4) == 1 && lendoMpuAccel() > ANGULO_RAMPA) {
-    return true;
-  }
+//  if(lerSharpDigital(3) == 1 && lerSharpDigital(4) == 1 && lendoMpuAccel() > ANGULO_RAMPA) {
+  //  return true;
+  //}
   return false;
 
 }
@@ -191,9 +191,9 @@ boolean verificaRedutor() {
 
 
 boolean verificaParede() {
-  if ((lerSharp(1) > 230) && (lerSharp(2) > 220) && (lerSharpDigital(1) == 1) && (lerSharpDigital(2) == 1)) {
-    return true;
-  }
+//  if ((lerSharp(1) > 230) && (lerSharp(2) > 220) && (lerSharpDigital(1) == 1) && (lerSharpDigital(2) == 1)) {
+  //  return true;
+  //}
   return false;
 }
 boolean verificaAreaResgate() {
@@ -213,14 +213,14 @@ boolean verificaVitima() {
 }
 
 boolean verificaVitimaEsquerda() {
-  if (lerSharpDigital(3) == 1) {
-    return true;
-  }
+//  if (lerSharpDigital(3) == 1) {
+  //  return true;
+  //}
   return false;
 }
 boolean verificaVitimaDireita() {
-  if (lerSharpDigital(4) == 1) {
-    return true;
-  }
+//  if (lerSharpDigital(4) == 1) {
+  //  return true;
+  //}
   return false;
 }
