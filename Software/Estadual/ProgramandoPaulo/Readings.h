@@ -88,30 +88,38 @@ void GetDMP() { // Best version I have made so far
 }
 
 
-int lerSensorVerde(int lado, int rgb) {
+int lerVerde(int lado) {
 
 
   // LER SENSOR VERDE DA ESQUERDA
   if (lado == ESQUERDA) {
-    
-    
+    return analogRead(sensorVerdeEsquerda);    
   }
 
 
   // LER SENSOR VERDE DA DIREITA
   if (lado == DIREITA) {
-
-
+    return analogRead(sensorVerdeDireita);
   }
 
 }
 
+void lerTodosVerdes(){
+
+  Serial.print(lerVerde(ESQUERDA));
+  Serial.print(" || ");
+  Serial.println(lerVerde(DIREITA));
+  
+}
 
 
 int lerTodosQTR() {
   unsigned int position = qtra.readLine(sensorValues);
   return position;
 }
+
+
+
 
 unsigned int lerQTR(int pino) {
 

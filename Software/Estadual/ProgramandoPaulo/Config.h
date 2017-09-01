@@ -35,14 +35,17 @@ void ligarMotores() {
 // PORTAS ANÁLOGICAS
 
 // SENSORES ARRAY QTR-8-A
-#define luminosidade1     A5 // SENSOR LINHA 1
-#define luminosidade2     A6 // SENSOR LINHA 2
-#define luminosidade3     A7 // SENSOR LINHA 3
-#define luminosidade4     A8 // SENSOR LINHA 4
-#define luminosidade5     A9 // SENSOR LINHA 5
-#define luminosidade6     A10 // SENSOR LINHA 6
-#define luminosidade7     A11 // SENSOR LINHA 7
-#define luminosidade8     A12 // SENSOR LINHA 8
+#define luminosidade1     A12 // SENSOR LINHA 1
+#define luminosidade2     A11 // SENSOR LINHA 2
+#define luminosidade3     A10 // SENSOR LINHA 3
+#define luminosidade4     A9 // SENSOR LINHA 4
+#define luminosidade5     A8 // SENSOR LINHA 5
+#define luminosidade6     A7 // SENSOR LINHA 6
+#define luminosidade7     A6 // SENSOR LINHA 7
+#define luminosidade8     A5 // SENSOR LINHA 8
+
+#define sensorVerdeEsquerda A15
+#define sensorVerdeDireita A14
 
 int QTR[] = {
   0,

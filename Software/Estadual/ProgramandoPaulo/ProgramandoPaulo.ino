@@ -78,11 +78,12 @@ void setup() {
 
 
 void loop() {
-  //PID(0.15, 0, 0.2, 75, 3500);
+  //PID(0.05, 0, 0.5, 50, 3500);
   //mover(100, 100);
   //Serial.println(analogRead(A5));
   //mover(-150, -150);
-  lerTodosSensores();
+  //lerTodosSensores();
+  lerTodosVerdes();
   //Seguidor(true);
   //Serial.println(analogRead(A3));
 }

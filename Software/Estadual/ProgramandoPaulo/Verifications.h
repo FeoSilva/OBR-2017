@@ -128,48 +128,6 @@ int verdedireita = 0;
 int verdeesquerda_somente = 0;
 int verdedireita_somente = 0;
 
-boolean verificaVerde(int lado) {
-
-  if (lado == ESQUERDA) {
-  
-    if ((lerSensorVerde(ESQUERDA, G) > 40) && (lerSensorVerde(ESQUERDA, R) > 70)) {
-      verdeesquerda++;
-    //} else if ((lerSensorVerde(ESQUERDA, G) > 80) && (lerSensorVerde(ESQUERDA, G) < 150)) {
-    //  verdeesquerda++;
-    } else {
-      verdeesquerda = 0;
-    }
-
-    if (verdeesquerda >= 5) {
-      return true;
-    } else {
-      return false;
-    }
-  }
-
-
-
-  if (lado == DIREITA) {
-  
-    if ((lerSensorVerde(DIREITA, G) > 40 /*&& (lerSensorVerde(DIREITA, G) < 45)*/)) {
-      verdedireita++;
-    //} else if ((lerSensorVerde(DIREITA, G) > 220 && (lerSensorVerde(DIREITA, G) < 330))) {
-    //  verdedireita++;
-    } else {
-      verdedireita = 0;
-    }
-
-    if (verdedireita >= 5) {
-      return true;
-    } else {
-      return false;
-    }
-
-
-  }
-
-
-}
 
 boolean verificaRampa() {
 

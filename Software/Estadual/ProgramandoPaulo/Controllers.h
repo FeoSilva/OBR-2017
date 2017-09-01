@@ -291,15 +291,7 @@ void Seguidor(boolean condicao) {
   
       for (int i = 0; i < 10; i++) { // make the calibration take about 10 seconds
         lerTodosSensores();
-        if (verificaVerde(ESQUERDA) == true && e == 0) {
-          Serial.println("******************************* VERDE ESQUERDA *****************************");
-          Verde(ESQUERDA);
-          e = 1;
-        } else if (verificaVerde(DIREITA) == true && e == 0) {
-          Serial.println("******************************* VERDE DIREITA *****************************");
-          Verde(DIREITA);
-          e = 1;
-        }
+
       }
 
 
@@ -339,16 +331,6 @@ void Seguidor(boolean condicao) {
       int t = 0;
       for (int i = 0; i < 10; i++) { // make the calibration take about 10 seconds
         lerTodosSensores();
-        if (verificaVerde(ESQUERDA) == true && t == 0) {
-          Serial.println("******************************* VERDE ESQUERDA *****************************");
-          Verde(ESQUERDA);
-          t = 1;
-        }
-        else if (verificaVerde(DIREITA) == true && t == 0) {
-          Serial.println("******************************* VERDE DIREITA *****************************");
-          Verde(DIREITA);
-          t = 1;
-        }
       }
 
       if (t == 0) {
