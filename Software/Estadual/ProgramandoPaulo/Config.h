@@ -9,12 +9,12 @@
 // Utilizamos 4 motores porém eles estão em paralelo
 
 // Motor ESQUERDO DIANETEIRO
-#define MotorEsquerdoFrente 4
-#define MotorEsquerdoTras 3
+#define MotorEsquerdoFrente 6
+#define MotorEsquerdoTras 5
 
 // Motor DIREITO DIANTEIRO
-#define MotorDireitoFrente 6
-#define MotorDireitoTras 5
+#define MotorDireitoFrente 4
+#define MotorDireitoTras 3
 
 
 
@@ -29,6 +29,16 @@ void ligarMotores() {
   pinMode(MotorDireitoTras, OUTPUT);
 
 }
+// Encoder Motor Traseiro Esquerdo
+// Change these two numbers to the pins connected to your encoder.
+//   Best Performance: both pins have interrupt capability
+//   Good Performance: only the first pin has interrupt capability
+//   Low Performance:  neither pin has interrupt capability
+#define encoderEsquerdoA 18
+#define encoderEsquerdoB 19
+
+Encoder encoderEsquerdo(encoderEsquerdoA, encoderEsquerdoB);
+
 
 /************************ SENSORES ************************/
 // Sensores: Pololu QTR-8A reflectance sensor, Sharp 4-30cm, Divisor de Tensão, GY521 IMU
@@ -311,6 +321,12 @@ DigitalOut Buzzer(buzzer);
 /************************ VARIÁVEIS DO ROBÔ ************************/
 int forca = 110;
 int forca_Baixa = 70;
+int pulsosPorRotacao = 3550; // um giro do encoder equivale a isso de pulsos
+float pi = 3.141592;
+
+float distanciaEntreEixos = 14.4; // 144 mm
+float raioRoda = 3.5; // 35 mm
+float circunferenciaRoda = 2 * pi * raioRoda;
 
 int forcaRampa = 200;
 int forca_Curva = 120; // forca da curva no obstaculo

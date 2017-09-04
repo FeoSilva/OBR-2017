@@ -50,6 +50,54 @@ void mover(int a, int b) {
   }
 };
 
+// mover o robo por pulsos do encoder
+void moverEncoder(int pulsos, int forcaEsquerda, int forcaDireita) {
+  encoderEsquerdo.write(0); // reseta o encoder
+  mover(forcaEsquerda, forcaDireita);
+  while(encoderEsquerdo.read() <= pulsos) {
+  }
+  pararMotores();
+}
+
+// transformar cm para pulsos do encoder e fazer o robo andar isso
+void andarCM (int distanciaCM, int forcaCM) {
+  float cmConvertidos = (distanciaCM / circunferenciaRoda) * pulsosPorRotacao;
+  moverEncoder(cmConvertidos, forcaCM, forcaCM);
+}
+// fazer curvas com encoder
+void curvaEncoder(int graus, int forcaCurvaEncoder, int sentido) {
+  float grausConvertido = ((distanciaEntreEixos / raioRoda) * graus) * 9.8611;
+  
+  if(sentido == DIREITA) {
+    moverEncoder(grausConvertido, forcaCurvaEncoder, forcaCurvaEncoder * -1);
+  }
+}
+
+
+void debugEncoder() {
+  mover(100, 100);
+  delay(200);
+  pararMotores();
+  Serial.print("Encoder Esquerdo: ");
+  Serial.println(encoderEsquerdo.read());
+  if(encoderEsquerdo.read() <= 20) {
+    while(1) {
+      //Buzzer.turnOn();
+      LED1.turnOn();
+      LED2.turnOn();
+      LED3.turnOn();
+      LED4.turnOn();
+      delay(200);
+      Buzzer.turnOff();
+      LED1.turnOff();
+      LED2.turnOff();
+      LED3.turnOff();
+      LED4.turnOff();
+      delay(200);
+    }
+  }
+  encoderEsquerdo.write(0);
+}
 
 void AlertaDeInicio() {
   // Acender Todos LEDs
