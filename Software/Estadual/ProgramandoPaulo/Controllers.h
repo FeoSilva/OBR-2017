@@ -9,6 +9,11 @@
 int aux = 0;
 int res = 0;
 
+/*
+  makes the third ward
+
+  true to enable
+*/
 void Salao3(boolean condicao) {
 
   while (condicao == true) {
@@ -46,14 +51,13 @@ void Salao3(boolean condicao) {
     while (aux == 1) {
       mover(75, 60);
       if (verificaVitima() == true) {
-        
+
         pararMotores();
         Curva45Graus(DIREITA, OBS);
         if (verificaVitima() == false) {
           Curva45Graus(ESQUERDA, OBS);
           pararMotores();
-          sinalizar();
-          resgate();         
+          resgate();
         }
         else {
           Curva45Graus(ESQUERDA, OBS);
@@ -86,7 +90,6 @@ void Salao3(boolean condicao) {
         */
         Curva90Graus(ESQUERDA, OBS);
         pararMotores();
-        sinalizar();
         resgate();
         Curva90Graus(DIREITA, OBS);
         pararMotores();
@@ -120,7 +123,6 @@ void Salao3(boolean condicao) {
           if (verificaVitima() == false) {
             Curva45Graus(ESQUERDA, OBS);
             pararMotores();
-            sinalizar();
             resgate();
           } else {
             pararMotores();
@@ -133,7 +135,6 @@ void Salao3(boolean condicao) {
           pararMotores();
           Curva90Graus(ESQUERDA, OBS);
           pararMotores();
-          sinalizar();
           resgate();
           delay(1000);
           Curva90Graus(DIREITA, OBS);
@@ -173,7 +174,6 @@ void Salao3(boolean condicao) {
             pararMotores();
             Curva90Graus(DIREITA, OBS);
             pararMotores();
-            sinalizar();
             resgate();
             delay(1000);
             Curva90Graus(ESQUERDA, OBS);
@@ -200,7 +200,7 @@ void Salao3(boolean condicao) {
           }
         }
         if (res >= 6) {
-          while(1){
+          while (1) {
             pararMotores();
           }
         }
@@ -211,6 +211,11 @@ void Salao3(boolean condicao) {
   }
 }
 
+/*
+  makes the second ward
+
+  true to enable
+*/
 void Seguidor(boolean condicao) {
 
   while (condicao == true) {
@@ -266,14 +271,14 @@ void Seguidor(boolean condicao) {
 
 
 
-    }*/
+      }*/
     // SEGUIDOR DE LINHA P.I.D.
     PID(KP, KI, KD, forcaPID, setPoint);
 
     //Serial.println("************** PID ***************");
     LED1.turnOn();
     Buzzer.turnOff();
-    lerTodosSensores();
+    lerTodosSensores(QTR);
 
 
     if (verificaRedutor() == true) {
@@ -288,9 +293,9 @@ void Seguidor(boolean condicao) {
 
 
       int e = 0;
-  
+
       for (int i = 0; i < 10; i++) { // make the calibration take about 10 seconds
-        lerTodosSensores();
+        lerTodosSensores(QTR);
 
       }
 
@@ -309,7 +314,7 @@ void Seguidor(boolean condicao) {
       Serial.println("************** OBSTÁCULO ***************");
       if (obstaculo_count == 1) {
         Obstaculo(ESQUERDA);
-        
+
       } else if (obstaculo_count == 2) {
         Obstaculo(ESQUERDA);
 
@@ -330,7 +335,7 @@ void Seguidor(boolean condicao) {
 
       int t = 0;
       for (int i = 0; i < 10; i++) { // make the calibration take about 10 seconds
-        lerTodosSensores();
+        lerTodosSensores(QTR);
       }
 
       if (t == 0) {
@@ -354,4 +359,3 @@ void Seguidor(boolean condicao) {
 
 
 };
-

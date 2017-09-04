@@ -12,7 +12,9 @@
   return sensorValues[pino];
   }*/
 
-
+/*
+  calculations for the operation of the MPU
+*/
 void MPUMath() {
   mpu.dmpGetQuaternion(&q, fifoBuffer);
   mpu.dmpGetGravity(&gravity, &q);
@@ -22,7 +24,9 @@ void MPUMath() {
   Roll = (ypr[2] * 180 / M_PI);
 }
 
-
+/*
+  get DMP from MPU
+*/
 void GetDMP() { // Best version I have made so far
   // Serial.println(F("FIFO interrupt at:"));
   // Serial.println(micros());
@@ -87,7 +91,9 @@ void GetDMP() { // Best version I have made so far
   }
 }
 
-
+/*
+  read a green sensor value
+*/
 int lerVerde(int lado) {
 
 
@@ -105,7 +111,9 @@ int lerVerde(int lado) {
 }
 
 
-
+/*
+  read all QTR sensors at once
+*/
 int lerTodosQTR() {
   unsigned int position = qtra.readLine(sensorValues);
   return position;
@@ -113,7 +121,9 @@ int lerTodosQTR() {
 
 
 
-
+/*
+  read a QTR sensor value
+*/
 unsigned int lerQTR(int pino) {
 
   //qtra.read(sensorValues);
@@ -121,16 +131,22 @@ unsigned int lerQTR(int pino) {
   //return sensorValues[pino-1];
 
 }
-
+/*
+  read a QTR sensor value
+*/
 int lerSharp(int pino) {
   return analogRead(Sharp[pino]);
 }
 
-
+/*
+  verify the button reductor
+*/
 int lerBtnRedutor() {
   return digitalRead(BTN_REDUTOR);
 }
-// sensors 0 through 5 are connected to analog inputs 0 through 5, respectively
+/*
+  sensors 0 through 5 are connected to analog inputs 0 through 5, respectively
+*/
 double lendoMpuAccel() {
 
   if (mpuInterrupt) { // wait for MPU interrupt or extra packet(s) available
@@ -172,51 +188,98 @@ double lendoMpuGyro() {
 
 }
 
+/*
 
-void lerTodosSensores() {
-  Serial.print("QTR: ");
-  Serial.print(lerQTR(1));
-  Serial.print(" ");
-  Serial.print(lerQTR(2));
-  Serial.print(" ");
-  Serial.print(lerQTR(3));
-  Serial.print(" ");
-  Serial.print(lerQTR(4));
-  Serial.print(" ");
-  Serial.print(lerQTR(5));
-  Serial.print(" ");
-  Serial.print(lerQTR(6));
-  Serial.print(" ");
-  Serial.print(lerQTR(7));
-  Serial.print(" ");
-  Serial.print(lerQTR(8));
-  Serial.print(" / ");
-  Serial.print(lerTodosQTR());
+   Read sensors selected
 
-  Serial.print(" Verde Esquerda: ");
-  Serial.print(lerVerde(ESQUERDA));
-  Serial.print(" || Verde Direita: ");
-  Serial.print(lerVerde(DIREITA));
-  Serial.print(" --- Sharp E: ");
-  Serial.print(lerSharp(1));
+   PARAMETERS FOR lerTodosSensores
 
-  Serial.print(" | FC: ");
-  Serial.print(lerSharp(2));
-
-  Serial.print(" | D: ");
-  Serial.print(lerSharp(3));
-
-  Serial.print(" | FB: ");
-  Serial.print(lerSharp(4));
-
-
-  Serial.print(" | FE: ");
-  Serial.print(lerSharp(5));
-
-  Serial.print(" | FD: ");
-  Serial.print(lerSharp(6));
-
-  Serial.println();
-  //delay(250);
+   "QTRSensor" for "QTR sensors"
+   "VERDESensor" for "sensors of green"
+   "SHARPSensor" for "Sharp sensors"
+   "ALLSensor" for "All sensors"
+*/
+void lerTodosSensores(int sensorType) {
+  switch (sensorType) {
+    case QTRSensor:
+      Serial.print("QTR: ");
+      Serial.print(lerQTR(1));
+      Serial.print(" ");
+      Serial.print(lerQTR(2));
+      Serial.print(" ");
+      Serial.print(lerQTR(3));
+      Serial.print(" ");
+      Serial.print(lerQTR(4));
+      Serial.print(" ");
+      Serial.print(lerQTR(5));
+      Serial.print(" ");
+      Serial.print(lerQTR(6));
+      Serial.print(" ");
+      Serial.print(lerQTR(7));
+      Serial.print(" ");
+      Serial.print(lerQTR(8));
+      Serial.print(" / ");
+      Serial.print(lerTodosQTR());
+      Serial.println();
+      break;
+    case VERDESensor:
+      Serial.print(" Verde Esquerda: ");
+      Serial.print(lerVerde(ESQUERDA));
+      Serial.print(" || Verde Direita: ");
+      Serial.print(lerVerde(DIREITA));
+      Serial.println();
+      break;
+    case SHARPSensor:
+      Serial.print(" --- Sharp E: ");
+      Serial.print(lerSharp(1));
+      Serial.print(" | FC: ");
+      Serial.print(lerSharp(2));
+      Serial.print(" | D: ");
+      Serial.print(lerSharp(3));
+      Serial.print(" | FB: ");
+      Serial.print(lerSharp(4));
+      Serial.print(" | FE: ");
+      Serial.print(lerSharp(5));
+      Serial.print(" | FD: ");
+      Serial.print(lerSharp(6));
+      Serial.println();
+      break;
+    case ALLSensor:
+      Serial.print("QTR: ");
+      Serial.print(lerQTR(1));
+      Serial.print(" ");
+      Serial.print(lerQTR(2));
+      Serial.print(" ");
+      Serial.print(lerQTR(3));
+      Serial.print(" ");
+      Serial.print(lerQTR(4));
+      Serial.print(" ");
+      Serial.print(lerQTR(5));
+      Serial.print(" ");
+      Serial.print(lerQTR(6));
+      Serial.print(" ");
+      Serial.print(lerQTR(7));
+      Serial.print(" ");
+      Serial.print(lerQTR(8));
+      Serial.print(" / ");
+      Serial.print(lerTodosQTR());
+      Serial.print(" Verde Esquerda: ");
+      Serial.print(lerVerde(ESQUERDA));
+      Serial.print(" || Verde Direita: ");
+      Serial.print(lerVerde(DIREITA));
+      Serial.print(" --- Sharp E: ");
+      Serial.print(lerSharp(1));
+      Serial.print(" | FC: ");
+      Serial.print(lerSharp(2));
+      Serial.print(" | D: ");
+      Serial.print(lerSharp(3));
+      Serial.print(" | FB: ");
+      Serial.print(lerSharp(4));
+      Serial.print(" | FE: ");
+      Serial.print(lerSharp(5));
+      Serial.print(" | FD: ");
+      Serial.print(lerSharp(6));
+      Serial.println();
+      break;
+  }
 }
-
