@@ -88,20 +88,18 @@ void GetDMP() { // Best version I have made so far
 }
 
 
-int lerSensorVerde(int lado, int rgb) {
+int lerVerde(int lado) {
 
 
   // LER SENSOR VERDE DA ESQUERDA
   if (lado == ESQUERDA) {
-    
-    
+    return analogRead(sensorVerdeEsquerda);
   }
 
 
   // LER SENSOR VERDE DA DIREITA
   if (lado == DIREITA) {
-
-
+    return analogRead(sensorVerdeDireita);
   }
 
 }
@@ -112,6 +110,9 @@ int lerTodosQTR() {
   unsigned int position = qtra.readLine(sensorValues);
   return position;
 }
+
+
+
 
 unsigned int lerQTR(int pino) {
 
@@ -173,7 +174,7 @@ double lendoMpuGyro() {
 
 
 void lerTodosSensores() {
-  
+  Serial.print("QTR: ");
   Serial.print(lerQTR(1));
   Serial.print(" ");
   Serial.print(lerQTR(2));
@@ -191,25 +192,30 @@ void lerTodosSensores() {
   Serial.print(lerQTR(8));
   Serial.print(" / ");
   Serial.print(lerTodosQTR());
-  Serial.print(" --- E: ");
+
+  Serial.print(" Verde Esquerda: ");
+  Serial.print(lerVerde(ESQUERDA));
+  Serial.print(" || Verde Direita: ");
+  Serial.print(lerVerde(DIREITA));
+  Serial.print(" --- Sharp E: ");
   Serial.print(lerSharp(1));
-  
+
   Serial.print(" | FC: ");
   Serial.print(lerSharp(2));
-  
+
   Serial.print(" | D: ");
   Serial.print(lerSharp(3));
-  
+
   Serial.print(" | FB: ");
   Serial.print(lerSharp(4));
 
-  
+
   Serial.print(" | FE: ");
   Serial.print(lerSharp(5));
 
   Serial.print(" | FD: ");
   Serial.print(lerSharp(6));
-  
+
   Serial.println();
   //delay(250);
 }

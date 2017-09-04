@@ -9,12 +9,12 @@
 // Utilizamos 4 motores porém eles estão em paralelo
 
 // Motor ESQUERDO DIANETEIRO
-#define MotorEsquerdoFrente 4
-#define MotorEsquerdoTras 3
+#define MotorEsquerdoFrente 6
+#define MotorEsquerdoTras 5
 
 // Motor DIREITO DIANTEIRO
-#define MotorDireitoFrente 6
-#define MotorDireitoTras 5
+#define MotorDireitoFrente 4
+#define MotorDireitoTras 3
 
 
 
@@ -29,20 +29,33 @@ void ligarMotores() {
   pinMode(MotorDireitoTras, OUTPUT);
 
 }
+// Encoder Motor Traseiro Esquerdo
+// Change these two numbers to the pins connected to your encoder.
+//   Best Performance: both pins have interrupt capability
+//   Good Performance: only the first pin has interrupt capability
+//   Low Performance:  neither pin has interrupt capability
+#define encoderEsquerdoA 18
+#define encoderEsquerdoB 19
+
+Encoder encoderEsquerdo(encoderEsquerdoA, encoderEsquerdoB);
+
 
 /************************ SENSORES ************************/
 // Sensores: Pololu QTR-8A reflectance sensor, Sharp 4-30cm, Divisor de Tensão, GY521 IMU
 // PORTAS ANÁLOGICAS
 
 // SENSORES ARRAY QTR-8-A
-#define luminosidade1     A5 // SENSOR LINHA 1
-#define luminosidade2     A6 // SENSOR LINHA 2
-#define luminosidade3     A7 // SENSOR LINHA 3
-#define luminosidade4     A8 // SENSOR LINHA 4
-#define luminosidade5     A9 // SENSOR LINHA 5
-#define luminosidade6     A10 // SENSOR LINHA 6
-#define luminosidade7     A11 // SENSOR LINHA 7
-#define luminosidade8     A12 // SENSOR LINHA 8
+#define luminosidade1     A12 // SENSOR LINHA 1
+#define luminosidade2     A11 // SENSOR LINHA 2
+#define luminosidade3     A10 // SENSOR LINHA 3
+#define luminosidade4     A9 // SENSOR LINHA 4
+#define luminosidade5     A8 // SENSOR LINHA 5
+#define luminosidade6     A7 // SENSOR LINHA 6
+#define luminosidade7     A6 // SENSOR LINHA 7
+#define luminosidade8     A5 // SENSOR LINHA 8
+
+#define sensorVerdeEsquerda A15
+#define sensorVerdeDireita A14
 
 int QTR[] = {
   0,
@@ -75,7 +88,7 @@ unsigned int sensorValues[NUM_SENSORS];
 #define sharp2     A2 // SENSOR FRENTE - CIMA
 #define sharp3     A1 // SENSOR DIREITA
 #define sharp4     A0 // SENSOR FRENTE - BAIXO
-#define sharp5     A15 // SENSOR FRENTE - 
+#define sharp5     A4 // SENSOR FRENTE - 
 #define sharp6     A13 // SENSOR FRENTE - DIREITA
 
 int Sharp[] {
@@ -308,6 +321,12 @@ DigitalOut Buzzer(buzzer);
 /************************ VARIÁVEIS DO ROBÔ ************************/
 int forca = 110;
 int forca_Baixa = 70;
+int pulsosPorRotacao = 3550; // um giro do encoder equivale a isso de pulsos
+float pi = 3.141592;
+
+float distanciaEntreEixos = 14.4; // 144 mm
+float raioRoda = 3.5; // 35 mm
+float circunferenciaRoda = 2 * pi * raioRoda;
 
 int forcaRampa = 200;
 int forca_Curva = 120; // forca da curva no obstaculo

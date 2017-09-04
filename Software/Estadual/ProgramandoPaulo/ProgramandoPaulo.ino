@@ -9,6 +9,8 @@
 #include <QTRSensors.h>
 #include <Servo.h>
 
+#include <Encoder.h>
+
 // I2Cdev and MPU6050 must be installed as libraries, or else the .cpp/.h files
 // for both classes must be in the include path of your project
 #include "I2Cdev.h"
@@ -38,6 +40,7 @@ void setup() {
   
   // SETUP DE TUDO
   ligarMotores(); // ligar motores
+  debugEncoder();
   Servo1.attach(servo1);
   Servo1.write(180);
   Servo2.attach(servo2);
@@ -72,17 +75,21 @@ void setup() {
 
   Serial.println(F("Alive"));
   //MPU6050Connect();
-
-
+  
 }
 
-
 void loop() {
-  //PID(0.15, 0, 0.2, 75, 3500);
+
+  if(Botao1.readValue() == HIGH) {
+
+  }
+  if(Botao2.readValue() == HIGH) {
+    andarCM(20, 100);
+  }
+  //PID(0.05, 0, 0.5, 50, 3500);
   //mover(100, 100);
   //Serial.println(analogRead(A5));
   //mover(-150, -150);
-  lerTodosSensores();
+  //lerTodosSensores();
   //Seguidor(true);
-  //Serial.println(analogRead(A3));
-}
+ }
