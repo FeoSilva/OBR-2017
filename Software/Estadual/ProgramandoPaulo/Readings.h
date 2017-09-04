@@ -93,7 +93,7 @@ int lerVerde(int lado) {
 
   // LER SENSOR VERDE DA ESQUERDA
   if (lado == ESQUERDA) {
-    return analogRead(sensorVerdeEsquerda);    
+    return analogRead(sensorVerdeEsquerda);
   }
 
 
@@ -104,13 +104,6 @@ int lerVerde(int lado) {
 
 }
 
-void lerTodosVerdes(){
-
-  Serial.print(lerVerde(ESQUERDA));
-  Serial.print(" || ");
-  Serial.println(lerVerde(DIREITA));
-  
-}
 
 
 int lerTodosQTR() {
@@ -181,7 +174,7 @@ double lendoMpuGyro() {
 
 
 void lerTodosSensores() {
-  
+  Serial.print("QTR: ");
   Serial.print(lerQTR(1));
   Serial.print(" ");
   Serial.print(lerQTR(2));
@@ -199,25 +192,30 @@ void lerTodosSensores() {
   Serial.print(lerQTR(8));
   Serial.print(" / ");
   Serial.print(lerTodosQTR());
-  Serial.print(" --- E: ");
+
+  Serial.print(" Verde Esquerda: ");
+  Serial.print(lerVerde(ESQUERDA));
+  Serial.print(" || Verde Direita: ");
+  Serial.print(lerVerde(DIREITA));
+  Serial.print(" --- Sharp E: ");
   Serial.print(lerSharp(1));
-  
+
   Serial.print(" | FC: ");
   Serial.print(lerSharp(2));
-  
+
   Serial.print(" | D: ");
   Serial.print(lerSharp(3));
-  
+
   Serial.print(" | FB: ");
   Serial.print(lerSharp(4));
 
-  
+
   Serial.print(" | FE: ");
   Serial.print(lerSharp(5));
 
   Serial.print(" | FD: ");
   Serial.print(lerSharp(6));
-  
+
   Serial.println();
   //delay(250);
 }

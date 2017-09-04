@@ -82,8 +82,7 @@ void loop() {
   //mover(100, 100);
   //Serial.println(analogRead(A5));
   //mover(-150, -150);
-  //lerTodosSensores();
-  lerTodosVerdes();
+  lerTodosSensores();
   //Seguidor(true);
   //Serial.println(analogRead(A3));
 }

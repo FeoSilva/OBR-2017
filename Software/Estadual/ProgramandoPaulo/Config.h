@@ -78,7 +78,7 @@ unsigned int sensorValues[NUM_SENSORS];
 #define sharp2     A2 // SENSOR FRENTE - CIMA
 #define sharp3     A1 // SENSOR DIREITA
 #define sharp4     A0 // SENSOR FRENTE - BAIXO
-#define sharp5     A15 // SENSOR FRENTE - 
+#define sharp5     A4 // SENSOR FRENTE - 
 #define sharp6     A13 // SENSOR FRENTE - DIREITA
 
 int Sharp[] {
