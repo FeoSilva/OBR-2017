@@ -80,16 +80,16 @@ void setup() {
 
 void loop() {
 
+  //lerTodosSensores(QTR);
+  //mover(100, 100);
+  //Seguidor(true);
   if(Botao1.readValue() == HIGH) {
 
   }
   if(Botao2.readValue() == HIGH) {
-    andarCM(20, 100);
+
   }
-  //PID(0.05, 0, 0.5, 50, 3500);
-  //mover(100, 100);
-  //Serial.println(analogRead(A5));
-  //mover(-150, -150);
-  //lerTodosSensores();
-  //Seguidor(true);
+  if(Botao3.readValue() == HIGH){
+    
+  }
  }

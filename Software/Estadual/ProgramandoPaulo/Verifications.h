@@ -4,6 +4,9 @@
   FUNÇÕES DE VERIFICAÇÃO DO ROBÔ
 */
 
+/*
+  read batery value
+*/
 void checarBateria() {
 
   if (myCustomVoltimeter.readVoltage() < VOLTAGE_LOW && myCustomVoltimeter.readVoltage() > 6) {
@@ -73,6 +76,10 @@ void checarBateria() {
 
 
 */
+
+/*
+  check if there GAP
+*/
 boolean verificaGap() {
   //if(lerQTR(1) <= branco && lerQTR(2) <= branco && lerQTR(3) <= branco && lerQTR(4) <= branco && lerQTR(5) <= branco && lerQTR(6) <= branco && lerQTR(7) <= branco && lerQTR(8) <= branco){
   if (lerTodosQTR() == 0 || lerTodosQTR() == 7000) {
@@ -81,7 +88,9 @@ boolean verificaGap() {
     return false;
   }
 }
-
+/*
+  check if there crossroad
+*/
 boolean verificaEncruzilhada() {
   if (lerQTR(1) >= preto && lerQTR(2) >= preto && lerQTR(3) >= preto && lerQTR(4) >= preto && lerQTR(5) >= preto && lerQTR(6) >= preto && lerQTR(7) >= preto && lerQTR(8) >= preto) {
     return true;
@@ -89,7 +98,9 @@ boolean verificaEncruzilhada() {
     return false;
   }
 }
-
+/*
+  check if there silver-tape
+*/
 boolean verificaSilverTap() {
   if (lerQTR(1) >= silver_tape && lerQTR(2) >= silver_tape && lerQTR(3) >= silver_tape && lerQTR(4) >= silver_tape && lerQTR(5) >= silver_tape && lerQTR(6) >= silver_tape && lerQTR(7) >= silver_tape && lerQTR(8) >= silver_tape) {
     return true;
@@ -98,7 +109,9 @@ boolean verificaSilverTap() {
   }
 }
 
-
+/*
+  check if there obstacle
+*/
 boolean verificaObstaculo() {
 
   if (lerSharp(2) > 340 && lerSharp(2) < 450) {
@@ -108,7 +121,9 @@ boolean verificaObstaculo() {
   }
 
 }
-
+/*
+  check if there T curve
+*/
 int verificaT() {
   if (lerQTR(1) >= preto && lerQTR(2) >= preto && lerQTR(3) >= preto && lerQTR(7) <= branco && lerQTR(8) <= branco) {
     return ESQUERDA;
@@ -128,16 +143,20 @@ int verdedireita = 0;
 int verdeesquerda_somente = 0;
 int verdedireita_somente = 0;
 
-
+/*
+  check if there ramp
+*/
 boolean verificaRampa() {
 
-//  if(lerSharpDigital(3) == 1 && lerSharpDigital(4) == 1 && lendoMpuAccel() > ANGULO_RAMPA) {
+  //  if(lerSharpDigital(3) == 1 && lerSharpDigital(4) == 1 && lendoMpuAccel() > ANGULO_RAMPA) {
   //  return true;
   //}
   return false;
 
 }
-
+/*
+  check if there reductor
+*/
 boolean verificaRedutor() {
 
   if (lerBtnRedutor() == 1) {
@@ -147,37 +166,50 @@ boolean verificaRedutor() {
 
 }
 
-
+/*
+  check if there wall
+*/
 boolean verificaParede() {
-//  if ((lerSharp(1) > 230) && (lerSharp(2) > 220) && (lerSharpDigital(1) == 1) && (lerSharpDigital(2) == 1)) {
+  //  if ((lerSharp(1) > 230) && (lerSharp(2) > 220) && (lerSharpDigital(1) == 1) && (lerSharpDigital(2) == 1)) {
   //  return true;
   //}
   return false;
 }
+/*
+  check if there rescue area
+*/
 boolean verificaAreaResgate() {
   if ((lerSharp(1) > 310) && (lerSharp(2) > 100)) {
     return true;
   }
   return false;
 }
+/*
+  check if there victim
+*/
 boolean verificaVitima() {
   if ((lerSharp(1) > 280) && (lerSharp(2) < 190)) {
-   /* if ((lerSharpDigital(1) == 1) && (lerSharpDigital(2) == 0)) {
-      return true;
-    }*/
+    /* if ((lerSharpDigital(1) == 1) && (lerSharpDigital(2) == 0)) {
+       return true;
+      }*/
     return true;
   }
   return false;
 }
-
+/*
+  check if there victim in the left
+*/
 boolean verificaVitimaEsquerda() {
-//  if (lerSharpDigital(3) == 1) {
+  //  if (lerSharpDigital(3) == 1) {
   //  return true;
   //}
   return false;
 }
+/*
+  check if there victim in the right
+*/
 boolean verificaVitimaDireita() {
-//  if (lerSharpDigital(4) == 1) {
+  //  if (lerSharpDigital(4) == 1) {
   //  return true;
   //}
   return false;

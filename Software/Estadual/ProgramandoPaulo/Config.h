@@ -317,6 +317,10 @@ DigitalOut Buzzer(buzzer);
 #define OBS 1
 #define LIN   0
 
+#define QTRSensor 1
+#define VERDESensor 2
+#define SHARPSensor 3
+#define ALLSensor 4
 
 /************************ VARIÁVEIS DO ROBÔ ************************/
 int forca = 110;

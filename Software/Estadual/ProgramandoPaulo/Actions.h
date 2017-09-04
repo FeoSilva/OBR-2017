@@ -2,10 +2,12 @@
 #include <Servo.h>
 #include <QTRSensors.h>
 
-/*
-  FUNÇÕES de Ação DO ROBÔ
-*/
 
+//FUNÇÕES de Ação DO ROBÔ
+
+/*
+   Stop all motors
+*/
 void pararMotores() {
   analogWrite(MotorEsquerdoFrente, 0);
   analogWrite(MotorEsquerdoTras, 0);
@@ -16,7 +18,12 @@ void pararMotores() {
 }
 
 
-/*** bloco okk ****/
+/*
+  Engine control
+
+  left-to-right engine power, respectively
+
+*/
 void mover(int a, int b) {
   if (a > 0) {
     //a=a*2.55;
@@ -50,16 +57,20 @@ void mover(int a, int b) {
   }
 };
 
-// mover o robo por pulsos do encoder
+/*
+  move the robot by pulses of encoder
+*/
 void moverEncoder(int pulsos, int forcaEsquerda, int forcaDireita) {
   encoderEsquerdo.write(0); // reseta o encoder
   mover(forcaEsquerda, forcaDireita);
-  while(encoderEsquerdo.read() <= pulsos) {
+  while (encoderEsquerdo.read() <= pulsos) {
   }
   pararMotores();
 }
 
-// transformar cm para pulsos do encoder e fazer o robo andar isso
+/*
+  convert for cm to encoder pulses and make the robo walk that
+*/
 void andarCM (int distanciaCM, int forcaCM) {
   float cmConvertidos = (distanciaCM / circunferenciaRoda) * pulsosPorRotacao;
   moverEncoder(cmConvertidos, forcaCM, forcaCM);
@@ -67,21 +78,23 @@ void andarCM (int distanciaCM, int forcaCM) {
 // fazer curvas com encoder
 void curvaEncoder(int graus, int forcaCurvaEncoder, int sentido) {
   float grausConvertido = ((distanciaEntreEixos / raioRoda) * graus) * 9.8611;
-  
-  if(sentido == DIREITA) {
+
+  if (sentido == DIREITA) {
     moverEncoder(grausConvertido, forcaCurvaEncoder, forcaCurvaEncoder * -1);
   }
 }
 
-
+/*
+  Encolder test
+*/
 void debugEncoder() {
   mover(100, 100);
   delay(200);
   pararMotores();
   Serial.print("Encoder Esquerdo: ");
   Serial.println(encoderEsquerdo.read());
-  if(encoderEsquerdo.read() <= 20) {
-    while(1) {
+  if (encoderEsquerdo.read() <= 20) {
+    while (1) {
       //Buzzer.turnOn();
       LED1.turnOn();
       LED2.turnOn();
@@ -99,6 +112,9 @@ void debugEncoder() {
   encoderEsquerdo.write(0);
 }
 
+/*
+  warning that the robot was started
+*/
 void AlertaDeInicio() {
   // Acender Todos LEDs
   // Dar Beep no buzzer
@@ -127,7 +143,9 @@ void AlertaDeInicio() {
 
 
 }
-
+/*
+  warning that the robot has passed a T
+*/
 void AlertaT() {
   LED4.turnOn();
   delay(150);
@@ -139,7 +157,11 @@ void AlertaT() {
   delay(300);
 }
 
-int lastError = 0;  
+int lastError = 0;
+
+/*
+  Line follower PID
+*/
 
 void PID (double kP, double kI, double kD, double tP, int media) {
 
@@ -198,6 +220,10 @@ void PID (double kP, double kI, double kD, double tP, int media) {
   }
 
   }*/
+
+/*
+  makes 90 degree curve
+*/
 
 void Curva90Graus(int lado, int tipo) {
   MPU6050Connect();
@@ -283,7 +309,9 @@ void Curva90Graus(int lado, int tipo) {
 
 
 }
-
+/*
+  makes T curve
+*/
 void T(int lado) {
 
 
@@ -317,7 +345,9 @@ void T(int lado) {
 
   }
 }
-
+/*
+  makes GAP
+*/
 void Gap(int estado) {
   LED1.turnOff();
   if (estado == ST_PRINCIPAL) {
@@ -327,13 +357,17 @@ void Gap(int estado) {
   }
   LED1.turnOn();
 }
-
+/*
+  makes crossroads
+*/
 void Encruzilhada() {
   LED4.turnOn();
   mover(forca, forca);
   LED4.turnOff();
 }
-
+/*
+  makes curve of green
+*/
 boolean Verde(int lado) {
 
   if (lado == ESQUERDA) {
@@ -359,7 +393,9 @@ boolean Verde(int lado) {
   }
 
 }
-
+/*
+  makes reductor
+*/
 void Redutor() {
 
   Buzzer.turnOn();
@@ -377,6 +413,9 @@ void Redutor() {
   Buzzer.turnOff();
 }
 
+/*
+  makes 45 degrees curve
+*/
 void Curva45Graus(int lado, int tipo) {
   MPU6050Connect();
 
@@ -461,7 +500,9 @@ void Curva45Graus(int lado, int tipo) {
 
 
 }
-
+/*
+  makes obstacle
+*/
 void Obstaculo(int lado) {
   // Primeria curva ===================================================
   pararMotores();
@@ -482,29 +523,29 @@ void Obstaculo(int lado) {
 
   // Anda pra frente até NÃO encontrar mais objeto
   if (lado == ESQUERDA) {
-//    while (lerSharpDigital(4) == 1) {
-  //    LED4.turnOn();
+    //    while (lerSharpDigital(4) == 1) {
+    //    LED4.turnOn();
     //  mover(forca, forca);
     //}
     LED4.turnOff();
   }
 
   if (lado == DIREITA) {
-//    while (lerSharpDigital(3) == 1) {
-  //    LED4.turnOn();
+    //    while (lerSharpDigital(3) == 1) {
+    //    LED4.turnOn();
     //  mover(forca, forca);
     //}
     LED4.turnOff();
-  }  
+  }
   pararMotores();
   delay(300);
-  
+
   // Anda mais um pouco para fazer a segunda curva ===================
 
   mover(forca_Baixa, forca_Baixa);
   delay(750);
   pararMotores();
-   
+
 
   // Segunda curva ===================================================
   if (lado == ESQUERDA) {
@@ -521,28 +562,28 @@ void Obstaculo(int lado) {
 
   if (lado == ESQUERDA) {
     LED4.turnOn();
-//    while (lerSharpDigital(4) == 0) {
-  //    mover(forca_Baixa, forca_Baixa);
+    //    while (lerSharpDigital(4) == 0) {
+    //    mover(forca_Baixa, forca_Baixa);
     //}
     LED4.turnOff();
     pararMotores();
     delay(300);
-//    while (lerSharpDigital(4) == 1) {
-  //    mover(forca_Baixa, forca_Baixa);
+    //    while (lerSharpDigital(4) == 1) {
+    //    mover(forca_Baixa, forca_Baixa);
     //}
     LED4.turnOff();
   }
   if (lado == DIREITA) {
     LED4.turnOn();
-//    while (lerSharpDigital(3) == 0) {
-  //    mover(forca, forca);
-   // }
+    //    while (lerSharpDigital(3) == 0) {
+    //    mover(forca, forca);
+    // }
     LED4.turnOff();
     pararMotores();
     delay(300);
     //while (lerSharpDigital(3) == 1) {
     //  mover(forca, forca);
-   // }
+    // }
     LED4.turnOff();
   }
 
@@ -582,8 +623,8 @@ void Obstaculo(int lado) {
       mover(forca_Baixa, forca_Baixa);
     }
     LED4.turnOff();
-  }
-  if (lado == DIREITA) {
+    }
+    if (lado == DIREITA) {
     LED4.turnOn();
     while (lerSharpDigital(3) == 0) {
       mover(forca, forca);
@@ -595,15 +636,15 @@ void Obstaculo(int lado) {
       mover(forca, forca);
     }
     LED4.turnOff();
-  }
-*/
-mover(forca_Baixa, forca_Baixa);
-delay(1000);
+    }
+  */
+  mover(forca_Baixa, forca_Baixa);
+  delay(1000);
   // Anda mais um pouco para a quarta curva ===========================
   pararMotores();
   delay(300);
 
- 
+
   if (lado == ESQUERDA) {
     mover(forca_Baixa * -1, forca_Baixa * -1);
     delay(50);
@@ -615,29 +656,31 @@ delay(1000);
     Curva90Graus(DIREITA, OBS);
   }
 
-        Servo1.attach(servo1);
-        Servo1.write(180);
-/*
-  pararMotores();
-  delay(300);
+  Servo1.attach(servo1);
+  Servo1.write(180);
+  /*
+    pararMotores();
+    delay(300);
 
-  // vai para trás para se alinhar no objeto BEM devargazinho
-  mover(forca_Baixa * -1, forca_Baixa * -1);
-  delay(200);
-  pararMotores();
+    // vai para trás para se alinhar no objeto BEM devargazinho
+    mover(forca_Baixa * -1, forca_Baixa * -1);
+    delay(200);
+    pararMotores();
 
-  if (verificaGap() == true) {
-
-    mover(forca_Curva * -1, forca_Curva);
-    delay(700);
     if (verificaGap() == true) {
-      mover(forca_Curva , forca_Curva * -1);
-      delay(800);
-    }
-  }*/
+
+      mover(forca_Curva * -1, forca_Curva);
+      delay(700);
+      if (verificaGap() == true) {
+        mover(forca_Curva , forca_Curva * -1);
+        delay(800);
+      }
+    }*/
 }
 
-
+/*
+  makes obstacle optmized
+*/
 void Desvio(int lado) {
 
   mover(forca_Baixa * -1, forca_Baixa * -1);
@@ -661,7 +704,9 @@ void Desvio(int lado) {
     pararMotores();
   }
 }
-
+/*
+  init the claw
+*/
 void inicioGarra() {
   Servo1.attach(servo1);
   Servo1.write(40);
@@ -674,7 +719,9 @@ void inicioGarra() {
     delay(15);
     }*/
 }
-
+/*
+  makes rescue
+*/
 void resgate() {
   Servo1.write(0);
   delay(1000);
@@ -702,6 +749,10 @@ void resgate() {
     }
   */
 }
+
+/*
+  makes the drop of victim
+*/
 void drop() {
   Servo1.write(80);
   Servo2.write(135);
@@ -712,20 +763,3 @@ void drop() {
   delay(100);
   Servo2.write(0);
 }
-
-void sinalizar(){
-  LED4.turnOn();
-  delay(100);
-  LED4.turnOff();
-  delay(100);
-  LED4.turnOn();
-  delay(100);
-  LED4.turnOff();
-  delay(100);
-  LED4.turnOn();
-  delay(100);
-  LED4.turnOff();
-}
-
-
-
