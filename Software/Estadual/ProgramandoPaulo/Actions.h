@@ -224,43 +224,10 @@ void PID (double kP, double kI, double kD, double tP, int media) {
 /*
   makes 90 degree curve
 */
-double gyroInicial = 0;
 
+double anguloInicial = 0;
+double anguloFinal = 0;
 void Curva90Graus(int lado, int tipo) {
-
-  pararMotores();
-  delay(500);
-
-  IMU_read();
-  double valorpadrao = getYPR(0);
-
-  while (getYPR(0) == 0.0 || getYPR(0) == valorpadrao) {
-    IMU_read();
-  }
-  IMU_read();
-
-  if (lado == ESQUERDA && tipo == LIN) {
-    gyroInicial = getYPR(0) - angulo_curva_esquerda;
-  }
-  if (lado == ESQUERDA && tipo == OBS) {
-    gyroInicial = getYPR(0) - angulo_curva_esquerda_obs;
-  }
-  if (lado == DIREITA && tipo == LIN) {
-    gyroInicial = getYPR(0) + angulo_curva_direita;
-  }
-  if (lado == DIREITA && tipo == OBS) {
-    gyroInicial = getYPR(0) + angulo_curva_direita_obs;
-  }
-  Serial.print("Angulo Atual: ");
-  Serial.println(getYPR(0));
-
-  if (gyroInicial > 360.0) {
-    gyroInicial = gyroInicial - 360.0;
-  } else if (gyroInicial < 0.0) {
-    gyroInicial = gyroInicial + 360.0;
-  }
-  Serial.print("Angulo Final: ");
-  Serial.println(gyroInicial);
 
   // robo anda para frente antes de fazer a curva
   if (lado == ESQUERDA && tipo == LIN) {
@@ -288,25 +255,33 @@ void Curva90Graus(int lado, int tipo) {
     LED4.turnOn();
 
     // Gira até o angulo do giroscopio for maior que o solicitado
-
     Serial.println("---------------------------- Curva ESQUERDA --------------------");
-    IMU_read();
-    auxGyro = 1;
-    while (auxGyro == 1) {
-      IMU_read();
+    pararMotores();
+    anguloInicial = getYPR(0);
+    anguloFinal = anguloInicial - 72;
 
-
-      while (getYPR(0) >= gyroInicial) {
-      }
-
-
-      Serial.println(getYPR(0));
-      Serial.println("Girou até ser 0");
-
-      if (getYPR(0) <= gyroInicial) {
-        auxGyro = 0;
-      }
+    if (anguloFinal < 0.0) {
+      anguloFinal = anguloFinal + 360.0;
+    } else if (anguloFinal > 360.0) {
+      anguloFinal = anguloFinal - 360.0;
     }
+
+    Serial.print("Angulo Inicial: ");
+    Serial.println(anguloInicial);
+    Serial.print("Angulo Final: ");
+    Serial.println(anguloFinal);
+
+    while (getYPR(0) <= anguloFinal) {
+      mover(forca_Curva * -1, forca_Curva);
+      Serial.println(getYPR(0));
+    }
+
+    while (getYPR(0) >= anguloFinal) {
+      mover(forca_Curva * -1, forca_Curva);
+      Serial.println(getYPR(0));
+    }
+
+    Serial.println("------------- FIM CURVA ESQUERDA ----------------");
 
     LED4.turnOff();
 
@@ -326,30 +301,33 @@ void Curva90Graus(int lado, int tipo) {
     // Gira pra direita ate o angular for menor que o solicitado
 
     Serial.println("---------------------------- Curva DIREITA --------------------");
+    pararMotores();
+    anguloInicial = getYPR(0);
+    anguloFinal = anguloInicial + 90;
 
-    // Manda andar até ser 360
-    IMU_read();
-
-    auxGyro = 1;
-    while (auxGyro == 1) {
-      IMU_read();
-      while (getYPR(0) >= gyroInicial && getYPR(0) != 0) {
-        IMU_read();
-        Serial.println(getYPR(0));
-        mover(forca_Curva, forca_Curva * -1);
-      }
-
-      // mandar andar até o restante
-      IMU_read();
-      while (getYPR(0) <= gyroInicial && getYPR(0) != 0) {
-        IMU_read();
-        Serial.println(getYPR(0));
-        mover(forca_Curva, forca_Curva * -1);
-      }
-      if (getYPR(0) >= gyroInicial) {
-        auxGyro = 0;
-      }
+    if (anguloFinal < 0.0) {
+      anguloFinal = anguloFinal + 360.0;
+    } else if (anguloFinal > 360.0) {
+      anguloFinal = anguloFinal - 360.0;
     }
+
+    Serial.print("Angulo Inicial: ");
+    Serial.println(anguloInicial);
+    Serial.print("Angulo Final: ");
+    Serial.println(anguloFinal);
+
+    while (getYPR(0) >= anguloFinal) {
+      mover(forca_Curva, forca_Curva * -1);
+      Serial.println(getYPR(0));
+    }
+
+    while (getYPR(0) <= anguloFinal) {
+      mover(forca_Curva, forca_Curva * -1);
+      Serial.println(getYPR(0));
+    }
+
+    Serial.println("------------- FIM CURVA DIREITA ----------------");
+
 
     LED4.turnOff();
 

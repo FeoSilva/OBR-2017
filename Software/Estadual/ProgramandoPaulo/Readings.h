@@ -18,69 +18,60 @@
 
 
 
-int took;
-int outOfSyncs;
-int interruptStatus;
-uint8_t packet[64];
 bool IMU_read() {
-  static int fifoCount = 0;
+  // if programming failed, don't try to do anything
+  if (!dmpReady) return;
 
-  // Check for interrupt
-  if (!imuInterrupted && fifoCount < 42)
-    return false;
+  // wait for MPU interrupt or extra packet(s) available
+  while (!mpuInterrupt && fifoCount < packetSize) {
+    // other program behavior stuff here
+    // .
+    // .
+    // .
+    // if you are really paranoid you can frequently test in between other
+    // stuff to see if mpuInterrupt is true, and if so, "break;" from the
+    // while() loop to immediately process the MPU data
+    // .
+    // .
+    // .
+  }
 
-  // Clear interrupt flag
-  imuInterrupted = false;
+  // reset interrupt flag and get INT_STATUS byte
+  mpuInterrupt = false;
+  mpuIntStatus = mpu.getIntStatus();
 
-  // Check for new Packet
-  delayMicroseconds(500);
-  interruptStatus = mpu.getIntStatus();
-  delayMicroseconds(50);
+  // get current FIFO count
   fifoCount = mpu.getFIFOCount();
 
-  if ((interruptStatus & 0x10) || fifoCount == 1024 || fifoCount % 42 > 0) {
+  // check for overflow (this should never happen unless our code is too inefficient)
+  if ((mpuIntStatus & 0x10) || fifoCount == 1024) {
     // reset so we can continue cleanly
-    delayMicroseconds(50);
     mpu.resetFIFO();
-    delayMicroseconds(50);
-    fifoCount = 0;
-    return false;
+    Serial.println(F("FIFO overflow!"));
+
+    // otherwise, check for DMP data ready interrupt (this should happen frequently)
+  } else if (mpuIntStatus & 0x02) {
+    // wait for correct available data length, should be a VERY short wait
+    while (fifoCount < packetSize) fifoCount = mpu.getFIFOCount();
+
+    // read a packet from FIFO
+    mpu.getFIFOBytes(fifoBuffer, packetSize);
+
+    // track FIFO count here in case there is > 1 packet available
+    // (this lets us immediately read more without waiting for an interrupt)
+    fifoCount -= packetSize;
+
+    // display Euler angles in degrees
+    mpu.dmpGetQuaternion(&q, fifoBuffer);
+    mpu.dmpGetGravity(&gravity, &q);
+    mpu.dmpGetYawPitchRoll(ypr, &q, &gravity);
   }
-
-  // Check if new data available
-  bool run = (interruptStatus & 0x02);
-
-  // Don't read if not ready
-  if (!run)
-    return false;
-
-  unsigned long start = millis();
-
-  // read a packet from FIFO
-  delayMicroseconds(50);
-  mpu.getFIFOBytes(packet, 42);
-  
-  fifoCount -= 42;
-
-  // Convert and save state to Object
-  mpu.dmpGetQuaternion(&q, packet);
-  mpu.dmpGetGravity(&gravity, &q);
-  mpu.dmpGetYawPitchRoll(ypr, &q, &gravity);
-
-  newImuData = true;
-
-  took = millis() - start;
 }
 float getYPR(int n) {
+  IMU_read();
+  if(n == 0)
+    return (ypr[n] * (180.0 / M_PI)) + 180;
 
-  if (n == 0) {
-    float grau = (ypr[n] * (180.0 / M_PI)) + 180;
-    if (grau == 180.0 || grau == 360.0) {
-      return 0.0;
-    } else {
-      return grau;
-    }
-  }
   return ypr[n] * (180.0 / M_PI);
 }
 

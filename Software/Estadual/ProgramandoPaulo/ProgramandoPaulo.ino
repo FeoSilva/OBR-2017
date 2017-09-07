@@ -35,6 +35,10 @@
 
 void setup() {
 
+  // i2c setup
+  //Wire.begin();
+  //TWBR = 24; // 400kHz I2C clock (200kHz if CPU is 8MHz)
+
   Serial.begin(115200);
 
   // SETUP DE TUDO
@@ -70,23 +74,17 @@ void setup() {
 
   Serial.println(F("Alive"));
   // put your setup code here, to run once:
-  Wire.begin();
-  TWBR = ((16000000L / 400000L) - 16) / 2;
-  delay(1);
-  IMU_init();
 
-  attachInterrupt(INTERRUPT_IMU, onIMURead, RISING);
+  // MPU6050 init
+  IMU_init();
 
 }
 
-
 void loop() {
-
-  IMU_read();
   //Serial.println(getYPR(0));
   //MPU6050Connect();
   //lendoMpuGyro();
-  //lerTodosSensores(MPU);
+  lerTodosSensores(MPU);
   //mover(70, 70);
   //Seguidor(true);
   if (Botao1.readValue() == HIGH) {
@@ -95,6 +93,8 @@ void loop() {
     Resgate(true);
   }
   if (Botao3.readValue() == HIGH) {
-    Curva90Graus(ESQUERDA, OBS);
+    //IMU_init();
+    Curva90Graus(DIREITA, OBS);
   }
+
 }
