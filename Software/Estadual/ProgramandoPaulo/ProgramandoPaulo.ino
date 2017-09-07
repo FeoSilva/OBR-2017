@@ -73,6 +73,7 @@ void setup() {
   delay(800);
 
   Serial.println(F("Alive"));
+
   // put your setup code here, to run once:
 
   // MPU6050 init
@@ -100,3 +101,4 @@ void loop() {
   }
 
 }
+

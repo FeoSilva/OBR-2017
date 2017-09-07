@@ -63,6 +63,7 @@ void mover(int a, int b) {
 void moverEncoder(int pulsos, int forcaEsquerda, int forcaDireita) {
   encoderEsquerdo.write(0); // reseta o encoder
   mover(forcaEsquerda, forcaDireita);
+
   if (forcaEsquerda < 0) {
     while (encoderEsquerdo.read() >= pulsos) {
     }
@@ -87,6 +88,7 @@ void curvaEncoder(int graus, int forcaCurvaEncoder, int sentido) {
   if (sentido == DIREITA) {
     moverEncoder(grausConvertido, forcaCurvaEncoder, forcaCurvaEncoder * -1);
   }
+
   if (sentido == ESQUERDA) {
     moverEncoder(grausConvertido * -1, forcaCurvaEncoder * -1, forcaCurvaEncoder);
   }
@@ -98,6 +100,35 @@ void curvaEncoder(int graus, int forcaCurvaEncoder, int sentido) {
 void debugEncoder() {
   mover(100, 100);
   delay(100);
+  pararMotores();
+  Serial.print("Encoder Esquerdo: ");
+  Serial.println(encoderEsquerdo.read());
+  if (encoderEsquerdo.read() <= 20) {
+    while (1) {
+      //Buzzer.turnOn();
+      LED1.turnOn();
+      LED2.turnOn();
+      LED3.turnOn();
+      LED4.turnOn();
+      delay(200);
+      Buzzer.turnOff();
+      LED1.turnOff();
+      LED2.turnOff();
+      LED3.turnOff();
+      LED4.turnOff();
+      delay(200);
+    }
+  }
+  encoderEsquerdo.write(0);
+}
+
+
+/*
+  Encolder test
+*/
+void debugEncoder() {
+  mover(100, 100);
+  delay(200);
   pararMotores();
   Serial.print("Encoder Esquerdo: ");
   Serial.println(encoderEsquerdo.read());
@@ -345,7 +376,6 @@ void Curva90Graus(int lado, int tipo) {
 
 }
 
-
 /*
   makes T curve
 */
@@ -436,8 +466,29 @@ boolean Verde(int lado) {
 /*
   makes 45 degrees curve
 */
+
 void Curva45Graus(int lado) {
   IMU_init();
+
+  // robo anda para frente antes de fazer a curva
+  if (lado == ESQUERDA && tipo == LIN) {
+
+    pararMotores();
+    delay(250);
+    mover(forca, forca);
+    delay(270);
+    pararMotores();
+
+  } else if (lado == DIREITA && tipo == LIN) {
+
+    pararMotores();
+    delay(250);
+    mover(forca, forca);
+    delay(270);
+    pararMotores();
+  }
+
+  // inicializa a mpu
 
   // faz a curva dependendo do lado passado no parametro
   if (lado == ESQUERDA) {

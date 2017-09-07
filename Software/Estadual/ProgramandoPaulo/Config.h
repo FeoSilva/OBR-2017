@@ -13,9 +13,9 @@
 #define MotorEsquerdoTras 5
 
 // Motor DIREITO DIANTEIRO
+
 #define MotorDireitoFrente 3
 #define MotorDireitoTras 4
-
 
 
 void ligarMotores() {
@@ -45,6 +45,7 @@ Encoder encoderEsquerdo(encoderEsquerdoA, encoderEsquerdoB);
 // PORTAS ANÁLOGICAS
 
 // SENSORES ARRAY QTR-8-A
+
 #define luminosidade1     A5 // SENSOR LINHA 1
 #define luminosidade2     A6 // SENSOR LINHA 2
 #define luminosidade3     A7 // SENSOR LINHA 3

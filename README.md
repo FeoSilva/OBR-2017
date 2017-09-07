@@ -38,7 +38,7 @@ http://www.sistemaolimpo.org/regionais/results.php?eventID=3
 
 <b>Integrantes:</b>
 - Felipe Oliveira Silva (18 anos - Programação / Eletrônica);
-- Antônio Pereira Neto (18 anos - Programação);
+- Antonio Pereira de Lima Neto (18 anos - Programação);
 - Giovanna Ferreira Diodato (16 anos - Programação);
 - Felipe de Souza Tiozo (17 anos - Mecânica / Eletrônica);
 

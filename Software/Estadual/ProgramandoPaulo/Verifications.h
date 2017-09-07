@@ -75,6 +75,7 @@ void I2CScanner() {
 /*
   check if there GAP
 */
+
 boolean verificaGap() {
   //if(lerQTR(1) <= branco && lerQTR(2) <= branco && lerQTR(3) <= branco && lerQTR(4) <= branco && lerQTR(5) <= branco && lerQTR(6) <= branco && lerQTR(7) <= branco && lerQTR(8) <= branco){
   if (lerTodosQTR() == 0 || lerTodosQTR() == 7000) {
@@ -139,6 +140,7 @@ int verdedireita = 0;
 int verdeesquerda_somente = 0;
 int verdedireita_somente = 0;
 
+
 boolean verificaVerde(int lado) {
 
   if (lado == ESQUERDA) {
@@ -190,6 +192,7 @@ boolean verificaRampa() {
 
 }
 
+
 /*
   check if there wall
 */
@@ -199,6 +202,7 @@ boolean verificaParede() {
   }
   return false;
 }
+
 /*
   check if there rescue area
 */
@@ -212,6 +216,7 @@ boolean verificaAreaResgate() {
   check if there victim
 */
 boolean verificaVitima() {
+
   if ((lerSharp(1) > 270) && (lerSharp(2) < 260)) {
     return true;
   }
@@ -229,6 +234,7 @@ boolean verificaVitima() {
   check if there victim in the left
 */
 boolean verificaVitimaEsquerda() {
+
   if(lerSharp(1) > 330){
     return true;
   }
@@ -238,6 +244,5 @@ boolean verificaVitimaEsquerda() {
   check if there victim in the right
 */
 boolean verificaVitimaDireita() {
-
   return false;
 }

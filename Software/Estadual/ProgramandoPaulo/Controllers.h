@@ -14,6 +14,7 @@ int res = 0;
 
   true to enable
 */
+
 void Resgate(boolean condicao) {
 
   while (condicao == true) {
@@ -49,6 +50,7 @@ void Resgate(boolean condicao) {
         delay(200);
         /*
           pararMotores();
+
           //Curva45Graus(DIREITA, OBS);
           mover(forca, forca * -1);
           delay(410);
@@ -63,6 +65,11 @@ void Resgate(boolean condicao) {
           //Curva45Graus(ESQUERDA, OBS);
           mover(forca * -1, forca);
           delay(350);
+          resgate();
+        }
+        else {
+          Curva45Graus(ESQUERDA, OBS);
+
           pararMotores();
           delay(100);
           //Curva90Graus(ESQUERDA, OBS);
@@ -93,6 +100,7 @@ void Resgate(boolean condicao) {
         mover(forca * -1, forca);
         delay(750);
         pararMotores();
+
         if (verificaVitima == true) {
           resgate();
           delay(200);
@@ -132,10 +140,24 @@ void Resgate(boolean condicao) {
         mover(60, 60);
         if (verificaVitima() == true) {
           pararMotores();
+
           resgate();
           pararMotores();
           delay(200);
           mover(60, 60);
+
+          Curva45Graus(DIREITA, OBS);
+          if (verificaVitima() == false) {
+            Curva45Graus(ESQUERDA, OBS);
+            pararMotores();
+            resgate();
+          } else {
+            pararMotores();
+            drop();
+            res = 6;
+          }
+          mover(75, 60);
+
         }
         /*
           if (verificaVitimaEsquerda() == true) {
@@ -297,6 +319,7 @@ void Seguidor(boolean condicao) {
     PID(KP, KI, KD, forcaPID, setPoint);
 
     //Serial.println("************** PID ***************");
+
     //LED1.turnOn();
     //Buzzer.turnOff();
     lerTodosSensores(ALLSensor);
@@ -309,6 +332,7 @@ void Seguidor(boolean condicao) {
 
 
       int e = 0;
+
       for (int i = 0; i < 10; i++) { // make the calibration take about 10 seconds
         //Serial.println(analogRead(A15));
         //lerTodosSensores(ALLSensor);
@@ -332,6 +356,7 @@ void Seguidor(boolean condicao) {
       Serial.println("************** ACABOU A ENCRUZILHADA ***************");
     }
 
+
     /*
         if (verificaObstaculo() == true) {
           obstaculo_count++;
@@ -351,6 +376,7 @@ void Seguidor(boolean condicao) {
           }
         }
     */
+
     if (verificaT() != IDDLE) {
       pararMotores();
       delay(500);
@@ -359,6 +385,7 @@ void Seguidor(boolean condicao) {
 
       int t = 0;
       for (int i = 0; i < 10; i++) { // make the calibration take about 10 seconds
+
         if (verificaVerde(ESQUERDA) == true && t == 0) {
           Serial.println("******************************* VERDE ESQUERDA *****************************");
           Verde(ESQUERDA);
@@ -388,6 +415,5 @@ void Seguidor(boolean condicao) {
 
 
   }
-
 
 };

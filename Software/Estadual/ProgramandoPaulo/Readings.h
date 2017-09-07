@@ -15,9 +15,6 @@
 /*
   get DMP from MPU
 */
-
-
-
 bool IMU_read() {
   // if programming failed, don't try to do anything
   if (!dmpReady) return;
@@ -67,12 +64,11 @@ bool IMU_read() {
     mpu.dmpGetYawPitchRoll(ypr, &q, &gravity);
   }
 }
+
 float getYPR(int n) {
   IMU_read();
-  if(n == 0)
+  if (n == 0)
     return (ypr[n] * (180.0 / M_PI)) + 180;
-
-  return ypr[n] * (180.0 / M_PI);
 }
 
 /*
@@ -122,17 +118,16 @@ int lerSharp(int pino) {
   return analogRead(Sharp[pino]);
 }
 
+
 /*
   sensors 0 through 5 are connected to analog inputs 0 through 5, respectively
 */
-
 
 /*
 
    Read sensors selected
 
    PARAMETERS FOR lerTodosSensores
-
    "QTRSensor" for "QTR sensors"
    "VERDESensor" for "sensors of green"
    "SHARPSensor" for "Sharp sensors"
@@ -140,6 +135,7 @@ int lerSharp(int pino) {
 */
 void lerTodosSensores(int sensorType) {
   switch (sensorType) {
+
     case MPU:
       IMU_read();
       Serial.print("Yaw: ");
@@ -152,6 +148,7 @@ void lerTodosSensores(int sensorType) {
       Serial.print(getYPR(2));
       Serial.println();
       break;
+
     case QTRSensor:
       Serial.print("QTR: ");
       Serial.print(lerQTR(1));
@@ -173,6 +170,7 @@ void lerTodosSensores(int sensorType) {
       Serial.print(lerTodosQTR());
       Serial.println();
       break;
+
     case VERDESensor:
       Serial.print(" Verde Esquerda: ");
       Serial.print(lerVerde(ESQUERDA));
@@ -180,6 +178,7 @@ void lerTodosSensores(int sensorType) {
       Serial.print(lerVerde(DIREITA));
       Serial.println();
       break;
+
     case SHARPSensor:
       Serial.print(" --- Sharp E: ");
       Serial.print(lerSharp(1));
@@ -195,6 +194,7 @@ void lerTodosSensores(int sensorType) {
       Serial.print(lerSharp(6));
       Serial.println();
       break;
+
     case ALLSensor:
       Serial.print("QTR: ");
       Serial.print(lerQTR(1));
