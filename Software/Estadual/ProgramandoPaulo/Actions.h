@@ -123,33 +123,6 @@ void debugEncoder() {
 }
 
 
-/*
-  Encolder test
-*/
-void debugEncoder() {
-  mover(100, 100);
-  delay(200);
-  pararMotores();
-  Serial.print("Encoder Esquerdo: ");
-  Serial.println(encoderEsquerdo.read());
-  if (encoderEsquerdo.read() <= 20) {
-    while (1) {
-      //Buzzer.turnOn();
-      LED1.turnOn();
-      LED2.turnOn();
-      LED3.turnOn();
-      LED4.turnOn();
-      delay(200);
-      Buzzer.turnOff();
-      LED1.turnOff();
-      LED2.turnOff();
-      LED3.turnOff();
-      LED4.turnOff();
-      delay(200);
-    }
-  }
-  encoderEsquerdo.write(0);
-}
 
 /*
   warning that the robot was started
@@ -467,26 +440,8 @@ boolean Verde(int lado) {
   makes 45 degrees curve
 */
 
-void Curva45Graus(int lado) {
-  IMU_init();
+void Curva45Graus(int lado, int tipo) {
 
-  // robo anda para frente antes de fazer a curva
-  if (lado == ESQUERDA && tipo == LIN) {
-
-    pararMotores();
-    delay(250);
-    mover(forca, forca);
-    delay(270);
-    pararMotores();
-
-  } else if (lado == DIREITA && tipo == LIN) {
-
-    pararMotores();
-    delay(250);
-    mover(forca, forca);
-    delay(270);
-    pararMotores();
-  }
 
   // inicializa a mpu
 
@@ -496,9 +451,33 @@ void Curva45Graus(int lado) {
     LED4.turnOn();
 
     // Gira até o angulo do giroscopio for maior que o solicitado
-    while (getYPR(0) >= angulo_curva_esquerda_45graus * -1) {
-      mover(forca_Curva * -1, forca_Curva);
+    Serial.println("---------------------------- Curva ESQUERDA --------------------");
+    pararMotores();
+    anguloInicial = getYPR(0);
+    anguloFinal = anguloInicial - angulo_curva_esquerda_45graus;
+
+    if (anguloFinal < 0.0) {
+      anguloFinal = anguloFinal + 360.0;
+    } else if (anguloFinal > 360.0) {
+      anguloFinal = anguloFinal - 360.0;
     }
+
+    Serial.print("Angulo Inicial: ");
+    Serial.println(anguloInicial);
+    Serial.print("Angulo Final: ");
+    Serial.println(anguloFinal);
+
+    while (getYPR(0) <= anguloFinal) {
+      mover(forca_Curva * -1, forca_Curva);
+      Serial.println(getYPR(0));
+    }
+
+    while (getYPR(0) >= anguloFinal) {
+      mover(forca_Curva * -1, forca_Curva);
+      Serial.println(getYPR(0));
+    }
+
+    Serial.println("------------- FIM CURVA ESQUERDA ----------------");
 
     LED4.turnOff();
 
@@ -508,12 +487,38 @@ void Curva45Graus(int lado) {
     LED4.turnOn();
 
     // Gira pra direita ate o angular for menor que o solicitado
-    while (getYPR(0) <= angulo_curva_direita_45graus) {
-      mover(forca_Curva, forca_Curva * -1);
+
+    Serial.println("---------------------------- Curva DIREITA --------------------");
+    pararMotores();
+    anguloInicial = getYPR(0);
+    anguloFinal = anguloInicial + angulo_curva_direita_45graus;
+
+    if (anguloFinal < 0.0) {
+      anguloFinal = anguloFinal + 360.0;
+    } else if (anguloFinal > 360.0) {
+      anguloFinal = anguloFinal - 360.0;
     }
+
+    Serial.print("Angulo Inicial: ");
+    Serial.println(anguloInicial);
+    Serial.print("Angulo Final: ");
+    Serial.println(anguloFinal);
+
+    while (getYPR(0) >= anguloFinal) {
+      mover(forca_Curva, forca_Curva * -1);
+      Serial.println(getYPR(0));
+    }
+
+    while (getYPR(0) <= anguloFinal) {
+      mover(forca_Curva, forca_Curva * -1);
+      Serial.println(getYPR(0));
+    }
+
+    Serial.println("------------- FIM CURVA 45 GRAUS DIREITA ----------------");
 
 
     LED4.turnOff();
+
   }
 
   pararMotores();
