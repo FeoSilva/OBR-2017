@@ -90,7 +90,9 @@ void loop() {
   if (Botao1.readValue() == HIGH) {
   }
   if (Botao2.readValue() == HIGH) {
-    Resgate(true);
+    //Resgate(true);
+    
+    Curva90Graus(ESQUERDA, OBS);
   }
   if (Botao3.readValue() == HIGH) {
     //IMU_init();

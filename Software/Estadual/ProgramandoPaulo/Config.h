@@ -208,11 +208,8 @@ unsigned long lastRun = 0;
 #define angulo_rampa_descida 20
 
 
-#define angulo_curva_direita 78
+#define angulo_curva_direita 90
 #define angulo_curva_esquerda 78
-
-#define angulo_curva_direita_obs 90
-#define angulo_curva_esquerda_obs 90
 
 #define angulo_curva_direita_45graus 45
 #define angulo_curva_esquerda_45graus 45

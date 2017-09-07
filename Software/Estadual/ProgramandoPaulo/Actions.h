@@ -228,7 +228,7 @@ void PID (double kP, double kI, double kD, double tP, int media) {
 double anguloInicial = 0;
 double anguloFinal = 0;
 void Curva90Graus(int lado, int tipo) {
-
+  
   // robo anda para frente antes de fazer a curva
   if (lado == ESQUERDA && tipo == LIN) {
 
@@ -258,7 +258,7 @@ void Curva90Graus(int lado, int tipo) {
     Serial.println("---------------------------- Curva ESQUERDA --------------------");
     pararMotores();
     anguloInicial = getYPR(0);
-    anguloFinal = anguloInicial - 72;
+    anguloFinal = anguloInicial - angulo_curva_esquerda;
 
     if (anguloFinal < 0.0) {
       anguloFinal = anguloFinal + 360.0;
@@ -303,7 +303,7 @@ void Curva90Graus(int lado, int tipo) {
     Serial.println("---------------------------- Curva DIREITA --------------------");
     pararMotores();
     anguloInicial = getYPR(0);
-    anguloFinal = anguloInicial + 90;
+    anguloFinal = anguloInicial + angulo_curva_direita;
 
     if (anguloFinal < 0.0) {
       anguloFinal = anguloFinal + 360.0;
