@@ -44,8 +44,8 @@ void setup() {
   // SETUP DE TUDO
   ligarMotores(); // ligar motores
   debugEncoder();
-  //Servo1.attach(servo1);
-  //Servo1.write(3);
+  Servo1.attach(servo1);
+  Servo1.write(93);
   //Servo2.attach(servo2);
   //Servo2.write(180);
 
@@ -85,19 +85,20 @@ void loop() {
   //Serial.println(getYPR(0));
   //MPU6050Connect();
   //lendoMpuGyro();
-  lerTodosSensores(MPU);
+  //lerTodosSensores(ALLSensor);
   //mover(70, 70);
   //Seguidor(true);
   if (Botao1.readValue() == HIGH) {
   }
   if (Botao2.readValue() == HIGH) {
     //Resgate(true);
-    
-    Curva90Graus(ESQUERDA, OBS);
+    //Verde(DIREITA);
+    //Curva90Graus(DIREITA, LIN);
   }
   if (Botao3.readValue() == HIGH) {
-    //IMU_init();
-    Curva90Graus(DIREITA, OBS);
+    LED4.turnOn();
+    delay(500);
+    Seguidor(true);
   }
 
 }

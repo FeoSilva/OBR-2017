@@ -376,7 +376,7 @@ void Seguidor(boolean condicao) {
           }
         }
     */
-
+/*
     if (verificaT() != IDDLE) {
       pararMotores();
       delay(500);
@@ -402,7 +402,7 @@ void Seguidor(boolean condicao) {
       }
       Serial.println("************** ACABOU O T ***************");
 
-    }
+    }*/
 
     if (verificaGap() == true) {
       Serial.println("******************************* GAP *****************************");

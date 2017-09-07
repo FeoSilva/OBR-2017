@@ -64,8 +64,12 @@ void moverEncoder(int pulsos, int forcaEsquerda, int forcaDireita) {
   encoderEsquerdo.write(0); // reseta o encoder
   mover(forcaEsquerda, forcaDireita);
 
+  Serial.print(forcaEsquerda);
+  Serial.println(forcaDireita);
+
   if (forcaEsquerda < 0) {
-    while (encoderEsquerdo.read() >= pulsos) {
+    
+    while (encoderEsquerdo.read() >= pulsos * -1) {
     }
   } else if (forcaEsquerda > 1) {
     while (encoderEsquerdo.read() <= pulsos) {
@@ -82,7 +86,7 @@ void andarCM (int distanciaCM, int forcaCM) {
   moverEncoder(cmConvertidos, forcaCM, forcaCM);
 }
 // fazer curvas com encoder
-void curvaEncoder(int graus, int forcaCurvaEncoder, int sentido) {
+void curvaEncoder(double graus, int forcaCurvaEncoder, int sentido) {
   float grausConvertido = ((distanciaEntreEixos / raioRoda) * graus) * 9.8611;
 
   if (sentido == DIREITA) {
@@ -232,23 +236,28 @@ void PID (double kP, double kI, double kD, double tP, int media) {
 double anguloInicial = 0;
 double anguloFinal = 0;
 void Curva90Graus(int lado, int tipo) {
+  IMU_read();
+  double valorpadrao = getYPR(0);
+  while(getYPR(0) == 180.0 || valorpadrao == getYPR(0)) {
+    IMU_read();
+  }
   
   // robo anda para frente antes de fazer a curva
   if (lado == ESQUERDA && tipo == LIN) {
 
     pararMotores();
     delay(250);
-    mover(forca, forca);
-    delay(270);
+    andarCM(3, forca);
     pararMotores();
+    delay(500);
 
   } else if (lado == DIREITA && tipo == LIN) {
 
     pararMotores();
     delay(250);
-    mover(forca, forca);
-    delay(270);
+    andarCM(3, forca);
     pararMotores();
+    delay(500);
   }
 
   // inicializa a mpu
@@ -338,9 +347,10 @@ void Curva90Graus(int lado, int tipo) {
     if (tipo == LIN) {
       // andada para tras depois de fazer a curva
       pararMotores();
-      mover(forca * -1, forca * -1);
-      delay(100);
+      delay(200);
+      andarCM(3, forca * -1);
       pararMotores();
+      delay(500);
     }
   }
 
@@ -415,8 +425,8 @@ boolean Verde(int lado) {
     LED3.turnOn();
     Buzzer.turnOn();
 
-    //Curva90Graus(ESQUERDA, LIN);
-    curvaEncoder(65, 80, ESQUERDA);
+    Curva90Graus(ESQUERDA, LIN);
+    //curvaEncoder(65, 80, ESQUERDA);
 
     Buzzer.turnOff();
     LED3.turnOff();
@@ -426,10 +436,14 @@ boolean Verde(int lado) {
 
     LED4.turnOn();
     Buzzer.turnOn();
-
-    //Curva90Graus(DIREITA, LIN);
-    curvaEncoder(90, 80, DIREITA);
-
+  
+    Curva90Graus(DIREITA, LIN);
+    
+    //curvaEncoder(68, 80, DIREITA);
+    //pararMotores();
+    //delay(500);
+    //andarCM(2, forca * -1);
+    
     Buzzer.turnOff();
     LED4.turnOff();
   }
