@@ -322,7 +322,7 @@ void Seguidor(boolean condicao) {
 
     //LED1.turnOn();
     //Buzzer.turnOff();
-    lerTodosSensores(ALLSensor);
+    //lerTodosSensores(ALLSensor);
 
 
     if (verificaEncruzilhada() == true) {
@@ -376,7 +376,7 @@ void Seguidor(boolean condicao) {
           }
         }
     */
-
+/*
     if (verificaT() != IDDLE) {
       pararMotores();
       delay(500);
@@ -402,7 +402,7 @@ void Seguidor(boolean condicao) {
       }
       Serial.println("************** ACABOU O T ***************");
 
-    }
+    }*/
 
     if (verificaGap() == true) {
       Serial.println("******************************* GAP *****************************");
