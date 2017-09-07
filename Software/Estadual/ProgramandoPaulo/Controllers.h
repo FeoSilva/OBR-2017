@@ -322,7 +322,7 @@ void Seguidor(boolean condicao) {
 
     //LED1.turnOn();
     //Buzzer.turnOff();
-    lerTodosSensores(ALLSensor);
+    //lerTodosSensores(ALLSensor);
 
 
     if (verificaEncruzilhada() == true) {

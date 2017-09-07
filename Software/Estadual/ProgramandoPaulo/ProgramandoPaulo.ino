@@ -45,7 +45,7 @@ void setup() {
   ligarMotores(); // ligar motores
   debugEncoder();
   Servo1.attach(servo1);
-  Servo1.write(93);
+  Servo1.write(180);
   //Servo2.attach(servo2);
   //Servo2.write(180);
 
@@ -85,7 +85,7 @@ void loop() {
   //Serial.println(getYPR(0));
   //MPU6050Connect();
   //lendoMpuGyro();
-  //lerTodosSensores(ALLSensor);
+  lerTodosSensores(ALLSensor);
   //mover(70, 70);
   //Seguidor(true);
   if (Botao1.readValue() == HIGH) {

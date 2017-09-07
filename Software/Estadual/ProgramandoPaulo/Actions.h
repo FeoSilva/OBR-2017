@@ -255,7 +255,7 @@ void Curva90Graus(int lado, int tipo) {
 
     pararMotores();
     delay(250);
-    andarCM(3, forca);
+    andarCM(2, forca);
     pararMotores();
     delay(500);
   }
@@ -348,7 +348,7 @@ void Curva90Graus(int lado, int tipo) {
       // andada para tras depois de fazer a curva
       pararMotores();
       delay(200);
-      andarCM(3, forca * -1);
+      andarCM(7, forca * -1);
       pararMotores();
       delay(500);
     }

@@ -145,7 +145,7 @@ boolean verificaVerde(int lado) {
 
   if (lado == ESQUERDA) {
   
-    if (analogRead(A15) > 760 && analogRead(A15) < 860) {
+    if (analogRead(A15) > 650 && analogRead(A15) < 750) {
       verdeesquerda++;
     } else {
       verdeesquerda = 0;
