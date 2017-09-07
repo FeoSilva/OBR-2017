@@ -9,12 +9,14 @@
 #include <QTRSensors.h>
 #include <Servo.h>
 
+#include <Encoder.h>
+
 // I2Cdev and MPU6050 must be installed as libraries, or else the .cpp/.h files
 // for both classes must be in the include path of your project
 #include "I2Cdev.h"
 
-#include "MPU6050_6Axis_MotionApps20.h"
 #include "Wire.h"
+#include "MPU6050_6Axis_MotionApps20.h"
 #include <Thread.h>
 #include "AnalogIn.h"
 #include "DigitalIn.h"
@@ -35,13 +37,13 @@ void setup() {
 
   Serial.begin(115200);
 
-  
   // SETUP DE TUDO
   ligarMotores(); // ligar motores
-  Servo1.attach(servo1);
-  Servo1.write(180);
-  Servo2.attach(servo2);
-  Servo2.write(180);
+  debugEncoder();
+  //Servo1.attach(servo1);
+  //Servo1.write(3);
+  //Servo2.attach(servo2);
+  //Servo2.write(180);
 
   AlertaDeInicio();
   delay(500);
@@ -66,23 +68,33 @@ void setup() {
   Serial.println("Inicializando...");
   delay(800);
 
-  // Initialize IMU
-  while (!Serial);
-  i2cSetup();
-
   Serial.println(F("Alive"));
-  //MPU6050Connect();
+  // put your setup code here, to run once:
+  Wire.begin();
+  TWBR = ((16000000L / 400000L) - 16) / 2;
+  delay(1);
+  IMU_init();
 
+  attachInterrupt(INTERRUPT_IMU, onIMURead, RISING);
 
 }
 
 
 void loop() {
-  //PID(0.15, 0, 0.2, 75, 3500);
-  //mover(100, 100);
-  //Serial.println(analogRead(A5));
-  //mover(-150, -150);
-  lerTodosSensores();
+
+  IMU_read();
+  //Serial.println(getYPR(0));
+  //MPU6050Connect();
+  //lendoMpuGyro();
+  //lerTodosSensores(MPU);
+  //mover(70, 70);
   //Seguidor(true);
-  //Serial.println(analogRead(A3));
+  if (Botao1.readValue() == HIGH) {
+  }
+  if (Botao2.readValue() == HIGH) {
+    Resgate(true);
+  }
+  if (Botao3.readValue() == HIGH) {
+    Curva90Graus(ESQUERDA, OBS);
+  }
 }
