@@ -15,8 +15,8 @@
 // for both classes must be in the include path of your project
 #include "I2Cdev.h"
 
-#include "MPU6050_6Axis_MotionApps20.h"
 #include "Wire.h"
+#include "MPU6050_6Axis_MotionApps20.h"
 #include <Thread.h>
 #include "AnalogIn.h"
 #include "DigitalIn.h"
@@ -35,16 +35,19 @@
 
 void setup() {
 
+  // i2c setup
+  //Wire.begin();
+  //TWBR = 24; // 400kHz I2C clock (200kHz if CPU is 8MHz)
+
   Serial.begin(115200);
 
-  
   // SETUP DE TUDO
   ligarMotores(); // ligar motores
   debugEncoder();
-  Servo1.attach(servo1);
-  Servo1.write(180);
-  Servo2.attach(servo2);
-  Servo2.write(180);
+  //Servo1.attach(servo1);
+  //Servo1.write(3);
+  //Servo2.attach(servo2);
+  //Servo2.write(180);
 
   AlertaDeInicio();
   delay(500);
@@ -69,27 +72,33 @@ void setup() {
   Serial.println("Inicializando...");
   delay(800);
 
-  // Initialize IMU
-  while (!Serial);
-  i2cSetup();
-
   Serial.println(F("Alive"));
-  //MPU6050Connect();
-  
+
+  // put your setup code here, to run once:
+
+  // MPU6050 init
+  IMU_init();
+
 }
 
 void loop() {
-
-  //lerTodosSensores(QTR);
-  //mover(100, 100);
+  //Serial.println(getYPR(0));
+  //MPU6050Connect();
+  //lendoMpuGyro();
+  lerTodosSensores(MPU);
+  //mover(70, 70);
   //Seguidor(true);
-  if(Botao1.readValue() == HIGH) {
-
+  if (Botao1.readValue() == HIGH) {
   }
-  if(Botao2.readValue() == HIGH) {
-
-  }
-  if(Botao3.readValue() == HIGH){
+  if (Botao2.readValue() == HIGH) {
+    //Resgate(true);
     
+    Curva90Graus(ESQUERDA, OBS);
   }
- }
+  if (Botao3.readValue() == HIGH) {
+    //IMU_init();
+    Curva90Graus(DIREITA, OBS);
+  }
+
+}
+
