@@ -9,13 +9,13 @@
 // Utilizamos 4 motores porém eles estão em paralelo
 
 // Motor ESQUERDO DIANETEIRO
-#define MotorEsquerdoFrente 6
-#define MotorEsquerdoTras 5
+#define MotorEsquerdoFrente 4
+#define MotorEsquerdoTras 3
 
 // Motor DIREITO DIANTEIRO
 
-#define MotorDireitoFrente 3
-#define MotorDireitoTras 4
+#define MotorDireitoFrente 6
+#define MotorDireitoTras 5
 
 
 void ligarMotores() {
@@ -55,7 +55,7 @@ Encoder encoderEsquerdo(encoderEsquerdoA, encoderEsquerdoB);
 #define luminosidade7     A11// SENSOR LINHA 7
 #define luminosidade8     A12  // SENSOR LINHA 8
 
-#define sensorVerdeEsquerda A15
+#define sensorVerdeEsquerda A13
 #define sensorVerdeDireita A14
 
 int QTR[] = {
@@ -85,12 +85,12 @@ unsigned int sensorValues[NUM_SENSORS];
 
 
 // SENSORES SHARP 4-30cm
-#define sharp1     A3 // SENSOR ESQUERDA
+#define sharp1     A4 // SENSOR ESQUERDA ok
 #define sharp2     A2 // SENSOR FRENTE - CIMA
-#define sharp3     A1 // SENSOR DIREITA
-#define sharp4     A0 // SENSOR FRENTE - BAIXO
-#define sharp5     A4 // SENSOR FRENTE - ESQUERDA
-#define sharp6     A13 // SENSOR FRENTE - DIREITA
+#define sharp3     A3 // SENSOR DIREITA OK
+#define sharp4     A0 // SENSOR FRENTE - BAIXO OK
+#define sharp5     A1 // SENSOR FRENTE - ESQUERDA ok
+#define sharp6     A15 // SENSOR FRENTE - DIREITA
 
 int Sharp[] {
   0,
