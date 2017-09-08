@@ -213,7 +213,7 @@ unsigned long lastRun = 0;
 #define angulo_curva_esquerda 78
 
 #define angulo_curva_direita_45graus 45
-#define angulo_curva_esquerda_45graus 45
+#define angulo_curva_esquerda_45graus 35
 
 int obstaculo_count = 0;
 
@@ -227,7 +227,7 @@ double arx, ary, arz, grx, gry, grz, gsx, gsy, gsz, rx, ry, rz;
 // SERVO MOTORES PARA A GARRA - 180 graus - Servo 9g
 // PORTAS PWM
 #define servo1 8 // PORTA PWM
-#define servo2 7 // PORTA PWM
+#define servo2 10 // PORTA PWM
 
 
 Servo Servo1;

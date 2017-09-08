@@ -45,10 +45,10 @@ void setup() {
   ligarMotores(); // ligar motores
   debugEncoder();
   Servo1.attach(servo1);
-  Servo1.write(93);
-  //Servo2.attach(servo2);
-  //Servo2.write(180);
-
+  Servo1.write(93);  
+  Servo2.attach(servo2);
+  Servo2.write(20);
+  Servo2.write(180);
   AlertaDeInicio();
   delay(500);
 
@@ -91,14 +91,18 @@ void loop() {
   if (Botao1.readValue() == HIGH) {
   }
   if (Botao2.readValue() == HIGH) {
-    //Resgate(true);
+    Resgate(true);
     //Verde(DIREITA);
     //Curva90Graus(DIREITA, LIN);
   }
   if (Botao3.readValue() == HIGH) {
+    /*
     LED4.turnOn();
     delay(500);
     Seguidor(true);
+    */
+    Curva45Graus(ESQUERDA);
+    pararMotores();
   }
 
 }

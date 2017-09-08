@@ -144,7 +144,7 @@ int verdedireita_somente = 0;
 boolean verificaVerde(int lado) {
 
   if (lado == ESQUERDA) {
-  
+
     if (analogRead(A15) > 760 && analogRead(A15) < 860) {
       verdeesquerda++;
     } else {
@@ -161,7 +161,7 @@ boolean verificaVerde(int lado) {
 
 
   if (lado == DIREITA) {
-  
+
     if (analogRead(A14) > 800 && analogRead(A14) < 900) {
       verdedireita++;
     } else {
@@ -216,26 +216,38 @@ boolean verificaAreaResgate() {
   check if there victim
 */
 boolean verificaVitima() {
-
-  if ((lerSharp(1) > 270) && (lerSharp(2) < 260)) {
+  if ((lerSharp(4) > 270) && (lerSharp(5) > 180) && (lerSharp(6) > 170) && (lerSharp(2) < 260)) {
+    return false;
+  }
+  if ((lerSharp(4) > 270) && (lerSharp(2) < 260)) {
     return true;
   }
   if ((lerSharp(5) > 180) && (lerSharp(2) < 260)) {
     return true;
-
   }
   if ((lerSharp(6) > 170) && (lerSharp(2) < 260)) {
     return true;
-
   }
   return false;
+}
+boolean confirmaVitima() {
+  Serial.print(lerSharp(4));
+  Serial.print(" || ");
+  Serial.print(lerSharp(5));
+  Serial.print(" || ");
+  Serial.println(lerSharp(6));
+
+  if ((lerSharp(4) > 270) && (lerSharp(5) > 180) && (lerSharp(6) > 170)) {
+    return false;
+  }
+  return true;
 }
 /*
   check if there victim in the left
 */
 boolean verificaVitimaEsquerda() {
 
-  if(lerSharp(1) > 330){
+  if (lerSharp(1) > 330) {
     return true;
   }
   return false;
