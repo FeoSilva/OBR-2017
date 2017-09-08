@@ -443,8 +443,13 @@ boolean Verde(int lado) {
   makes 45 degrees curve
 */
 
-void Curva45Graus(int lado, int tipo) {
-
+void Curva45Graus(int lado) {
+  IMU_read();
+  double valorpadrao = getYPR(0);
+  while(getYPR(0) == 180.0 || valorpadrao == getYPR(0)) {
+    IMU_read();
+  }
+  
 
   // inicializa a mpu
 
@@ -480,7 +485,7 @@ void Curva45Graus(int lado, int tipo) {
       Serial.println(getYPR(0));
     }
 
-    Serial.println("------------- FIM CURVA ESQUERDA ----------------");
+    Serial.println("------------- FIM CURVA ESQUERDA 45 GRAUS----------------");
 
     LED4.turnOff();
 
@@ -517,11 +522,10 @@ void Curva45Graus(int lado, int tipo) {
       Serial.println(getYPR(0));
     }
 
-    Serial.println("------------- FIM CURVA 45 GRAUS DIREITA ----------------");
+    Serial.println("------------- FIM CURVA DIREITA ----------------");
 
 
     LED4.turnOff();
-
   }
 
   pararMotores();
@@ -740,8 +744,7 @@ void Desvio(int lado) {
   init the claw
 */
 void inicioGarra() {
-  Servo1.attach(servo1);
-  Servo1.write(3);
+  Servo1.write(93);
 
   /*
     int pos = 0;
@@ -754,25 +757,28 @@ void inicioGarra() {
   makes rescue
 */
 void resgate() {
+  /*
   Buzzer.turnOn();
   delay(300);
   Buzzer.turnOff();
-  /*
-    mover(60,60);
-    delay(150);
-    pararMotores();
-    Servo1.write(80);
-    delay(1000);
-    Servo1.write(3);
-    delay(500);
   */
+    pararMotores();
+    Servo1.write(180);
+    delay(1000);
+    pararMotores();
+    Servo1.write(130);
+    delay(500);
+    Servo1.write(180);
+    delay(1000);
+    Servo1.write(93);
+    delay(500);
 }
 
 /*
   makes the drop of victim
 */
 void drop() {
-  Servo1.write(85);
+  Servo1.write(110);
   Servo2.write(180);
   delay(100);
   Servo2.write(90);

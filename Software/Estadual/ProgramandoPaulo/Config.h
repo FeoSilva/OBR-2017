@@ -209,7 +209,7 @@ unsigned long lastRun = 0;
 #define angulo_curva_esquerda 60
 
 #define angulo_curva_direita_45graus 45
-#define angulo_curva_esquerda_45graus 45
+#define angulo_curva_esquerda_45graus 35
 
 int obstaculo_count = 0;
 

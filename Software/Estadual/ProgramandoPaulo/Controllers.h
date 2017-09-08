@@ -23,42 +23,34 @@ void Resgate(boolean condicao) {
     mover(forca, forca);
     delay(300);
     pararMotores();
-    //inicioGarra();
+    inicioGarra();
     delay(200);
-    //Curva90Graus(ESQUERDA, OBS);
-    mover(forca * -1, forca);
-    delay(700);
+    Curva90Graus(ESQUERDA, OBS);
     mover(forca * -1, forca * -1);
     delay(1000);
     pararMotores();
     delay(100);
     andarCM(5, 60);
     pararMotores();
-    //Curva90Graus(DIREITA, OBS);
-    mover(forca, forca * -1);
-    delay(820);
+    Curva90Graus(DIREITA, OBS);
     pararMotores();
     aux = 1;
 
     // VERIFICAÇÕES E AÇÕES DA PRIMEIRA RONDA___________________
     while (aux == 1) {
-      mover(60, 60);
+      mover(60, 65);
       if (verificaVitima() == true) {
         pararMotores();
-        resgate();
+        //Curva45Graus(DIREITA);
+        curvaEncoder(45, forca, DIREITA);
         pararMotores();
-        delay(200);
-        /*
+        delay(300);
+        if (confirmaVitima() == true) {
+          delay(300);
+          //Curva45Graus(ESQUERDA);
+          curvaEncoder(45, forca, ESQUERDA);
           pararMotores();
-
-          //Curva45Graus(DIREITA, OBS);
-          mover(forca, forca * -1);
-          delay(410);
-          if (verificaVitima() == false) {
-          //Curva45Graus(ESQUERDA, OBS);
-          mover(forca * -1, forca);
-          delay(350);
-          pararMotores();
+          delay(300);
           resgate();
           }
           else {
@@ -76,55 +68,40 @@ void Resgate(boolean condicao) {
           mover(forca * -1, forca);
           delay(700);
           pararMotores();
-          delay(100);
-          mover(forca, forca);
-          delay(1400);
+          delay(200);
+          andarCM(30, 60);
           pararMotores();
           delay(100);
-          //Curva90Graus(ESQUERDA, OBS);
-          mover(forca * -1, forca);
-          delay(700);
+          Curva90Graus(ESQUERDA, OBS);
           pararMotores();
           delay(100);
           mover(forca * -1, forca * -1);
-          delay(1000);
+          delay(2000);
           pararMotores();
           res = 2;
-          }*/
-        mover(60, 60);
+        }
+        mover(60, 65);
       }
 
       if (verificaVitimaEsquerda() == true) {
         pararMotores();
-        //Curva90Graus(ESQUERDA, OBS);
-        mover(forca * -1, forca);
-        delay(750);
+        Curva90Graus(ESQUERDA, OBS);
         pararMotores();
-
-        if (verificaVitima == true) {
-          resgate();
-          delay(200);
-        }
-        //Curva90Graus(DIREITA, OBS);
-        mover(forca, forca * -1);
-        delay(820);
+        resgate();
+        delay(200);
+        Curva90Graus(DIREITA, OBS);
         pararMotores();
         mover(60, 60);
       }
       if (verificaParede() == true) {
         pararMotores();
-        //Curva90Graus(ESQUERDA, OBS);
-        mover(forca * -1, forca);
-        delay(700);
+        Curva90Graus(ESQUERDA, OBS);
         pararMotores();
         delay(100);
-        mover(forca, forca);
-        delay(1000);
+        andarCM(20, 60);
         pararMotores();
         delay(100);
-        //Curva90Graus(ESQUERDA, OBS);
-        mover(forca * -1, forca);
-        delay(700);
+        Curva90Graus(ESQUERDA, OBS);
         pararMotores();
         delay(100);
         mover(forca * -1, forca * -1);
@@ -140,37 +117,57 @@ void Resgate(boolean condicao) {
         mover(60, 60);
         if (verificaVitima() == true) {
           pararMotores();
-
-          resgate();
+          //Curva45Graus(DIREITA);
+          curvaEncoder(45, forca, DIREITA);
           pararMotores();
-          delay(200);
-          mover(60, 60);
-
-          Curva45Graus(DIREITA, OBS);
-          if (verificaVitima() == false) {
-            Curva45Graus(ESQUERDA, OBS);
+          delay(300);
+          if (confirmaVitima() == true) {
+            delay(300);
+            //Curva45Graus(ESQUERDA);
+            curvaEncoder(45, forca, ESQUERDA);
             pararMotores();
+            delay(300);
             resgate();
           } else {
+            //Curva45Graus(ESQUERDA);
+            curvaEncoder(45, forca, ESQUERDA);
+            Curva90Graus(ESQUERDA, OBS);
             pararMotores();
-            drop();
-            res = 6;
+            delay(200);
+            andarCM(30, 60);
+            pararMotores();
+            delay(100);
+            Curva90Graus(ESQUERDA, OBS);
+            pararMotores();
+            delay(100);
+            mover(forca * -1, forca * -1);
+            delay(2000);
+            pararMotores();
+            res = 2;
           }
-          mover(75, 60);
-
+          mover(60, 65);
         }
-        /*
-          if (verificaVitimaEsquerda() == true) {
+
+        if (verificaVitimaEsquerda() == true) {
           pararMotores();
           Curva90Graus(ESQUERDA, OBS);
           pararMotores();
           resgate();
-          delay(1000);
+          delay(200);
           Curva90Graus(DIREITA, OBS);
           pararMotores();
           mover(60, 60);
-          }
-        */
+        }
+        if (verificaVitimaDireita() == true) {
+          pararMotores();
+          Curva90Graus(ESQUERDA, OBS);
+          pararMotores();
+          resgate();
+          delay(200);
+          Curva90Graus(DIREITA, OBS);
+          pararMotores();
+          mover(60, 60);
+        }
         if (verificaParede() == true) {
           pararMotores();
           //Curva90Graus(DIREITA, OBS);
@@ -373,6 +370,7 @@ void Seguidor(boolean condicao) {
     }
 
 
+
     if (verificaT() != IDDLE) {
       pararMotores();
       delay(500);
@@ -384,8 +382,9 @@ void Seguidor(boolean condicao) {
       }
 
 
-      int t = 0;
-      for (int i = 0; i < 10; i++) { // make the calibration take about 10 seconds
+          int t = 0;
+          for (int i = 0; i < 10; i++) { // make the calibration take about 10 seconds
+
 
         lerTodosSensores(ALLSensor);
         if (verificaVerde(ESQUERDA) == true && t == 0) {
@@ -399,10 +398,11 @@ void Seguidor(boolean condicao) {
         }
       }
 
-      if (t == 0) {
-        T(verificaT());
-      }
-      Serial.println("************** ACABOU O T ***************");
+          if (t == 0) {
+            T(verificaT());
+          }
+          Serial.println("************** ACABOU O T ***************");
+
 
     }
 
