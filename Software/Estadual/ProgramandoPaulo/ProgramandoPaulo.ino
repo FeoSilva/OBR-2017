@@ -46,8 +46,9 @@ void setup() {
   debugEncoder();
   Servo1.attach(servo1);
   Servo1.write(93);
-  Servo2.attach(servo2);
-  Servo2.write(180);
+  //Servo2.detach();
+  //Servo2.attach(servo2);
+  //Servo2.write(180);
 
   AlertaDeInicio();
   delay(500);
@@ -89,15 +90,21 @@ void loop() {
   //mover(70, 70);
   //Seguidor(true);
   if (Botao1.readValue() == HIGH) {
+    LED2.turnOn();
+    delay(500);
+    Seguidor(true);
   }
   if (Botao2.readValue() == HIGH) {
     Resgate(true);
     //Verde(DIREITA);
+    
+    curvaEncoder(60, 100, ESQUERDA);
+    //Curva90Graus(ESQUERDA, LIN);
+  }
+  if (Botao4.readValue() == HIGH) {
+    resgate();
     //Curva90Graus(DIREITA, LIN);
   }
-  if (Botao3.readValue() == HIGH) {
-    
-  }
-
+  
 }
 

@@ -112,7 +112,7 @@ boolean verificaSilverTap() {
 */
 boolean verificaObstaculo() {
 
-  if (lerSharp(2) > 340 && lerSharp(2) < 450) {
+  if (lerSharp(2) > 330 && lerSharp(2) < 450) {
     return true;
   } else {
     return false;
@@ -123,9 +123,9 @@ boolean verificaObstaculo() {
   check if there T curve
 */
 int verificaT() {
-  if (lerQTR(1) >= preto && lerQTR(2) >= preto && lerQTR(3) >= preto && lerQTR(7) <= branco && lerQTR(8) <= branco) {
+  if (lerQTR(1) >= preto && lerQTR(2) >= preto && lerQTR(3) >= preto && lerQTR(7) <= branco  && lerQTR(8) <= branco) {
     return ESQUERDA;
-  } else if (lerQTR(6) >= preto && lerQTR(7) >= preto && lerQTR(8) >= preto && lerQTR(1) <= branco && lerQTR(2) <= branco) {
+  } else if (lerQTR(6) >= preto && lerQTR(7) >= preto && lerQTR(8) >= preto && lerQTR(2) <= branco && lerQTR(1) <= branco) {
     return DIREITA;
   }
   return IDDLE;
@@ -146,7 +146,7 @@ boolean verificaVerde(int lado) {
   if (lado == ESQUERDA) {
 
   
-    if (analogRead(A15) > 650 && analogRead(A15) < 750) {
+    if (analogRead(A13) > 650 && analogRead(A13) < 820) {
       verdeesquerda++;
     } else {
       verdeesquerda = 0;
@@ -163,7 +163,8 @@ boolean verificaVerde(int lado) {
 
   if (lado == DIREITA) {
 
-    if (analogRead(A14) > 800 && analogRead(A14) < 900) {
+  
+    if (analogRead(A14) > 700 && analogRead(A14) < 800) {
       verdedireita++;
     } else {
       verdedireita = 0;
@@ -186,11 +187,10 @@ boolean verificaVerde(int lado) {
 */
 boolean verificaRampa() {
 
-  //  if(lerSharpDigital(3) == 1 && lerSharpDigital(4) == 1 && lendoMpuAccel() > ANGULO_RAMPA) {
-  //  return true;
-  //}
+   if(lerSharp(1) <= 300 && lerSharp(3) <= 360 && getYPR(2) > ANGULO_RAMPA) {
+    return true;
+  }
   return false;
-
 }
 
 
