@@ -68,7 +68,7 @@ void moverEncoder(int pulsos, int forcaEsquerda, int forcaDireita) {
   Serial.println(forcaDireita);
 
   if (forcaEsquerda < 0) {
-    
+
     while (encoderEsquerdo.read() >= pulsos * -1) {
     }
   } else if (forcaEsquerda > 1) {
@@ -94,7 +94,7 @@ void curvaEncoder(double graus, int forcaCurvaEncoder, int sentido) {
   }
 
   if (sentido == ESQUERDA) {
-    moverEncoder(grausConvertido * -1, forcaCurvaEncoder * -1, forcaCurvaEncoder);
+    moverEncoder(grausConvertido, forcaCurvaEncoder * -1, forcaCurvaEncoder);
   }
 }
 
@@ -236,28 +236,13 @@ void PID (double kP, double kI, double kD, double tP, int media) {
 double anguloInicial = 0;
 double anguloFinal = 0;
 void Curva90Graus(int lado, int tipo) {
+
+  Servo1.detach();
+
   IMU_read();
   double valorpadrao = getYPR(0);
-  while(getYPR(0) == 180.0 || valorpadrao == getYPR(0)) {
+  while (getYPR(0) == 180.0 || valorpadrao == getYPR(0)) {
     IMU_read();
-  }
-  
-  // robo anda para frente antes de fazer a curva
-  if (lado == ESQUERDA && tipo == LIN) {
-
-    pararMotores();
-    delay(250);
-    andarCM(3, forca);
-    pararMotores();
-    delay(500);
-
-  } else if (lado == DIREITA && tipo == LIN) {
-
-    pararMotores();
-    delay(250);
-    andarCM(2, forca);
-    pararMotores();
-    delay(500);
   }
 
   // inicializa a mpu
@@ -298,13 +283,6 @@ void Curva90Graus(int lado, int tipo) {
 
     LED4.turnOff();
 
-    if (tipo == LIN) {
-      // andada para tras depois de fazer a curva
-      pararMotores();
-      mover(forca * -1, forca * -1);
-      delay(100);
-      pararMotores();
-    }
 
   }
   else if (lado == DIREITA) {
@@ -328,30 +306,21 @@ void Curva90Graus(int lado, int tipo) {
     Serial.println(anguloInicial);
     Serial.print("Angulo Final: ");
     Serial.println(anguloFinal);
-
+    Serial.println("Rodou metade");
     while (getYPR(0) >= anguloFinal) {
       mover(forca_Curva, forca_Curva * -1);
       Serial.println(getYPR(0));
     }
-
     while (getYPR(0) <= anguloFinal) {
       mover(forca_Curva, forca_Curva * -1);
       Serial.println(getYPR(0));
     }
 
+
     Serial.println("------------- FIM CURVA DIREITA ----------------");
 
 
     LED4.turnOff();
-
-    if (tipo == LIN) {
-      // andada para tras depois de fazer a curva
-      pararMotores();
-      delay(200);
-      andarCM(7, forca * -1);
-      pararMotores();
-      delay(500);
-    }
   }
 
   pararMotores();
@@ -366,8 +335,7 @@ void T(int lado) {
 
 
   // anda um pouco para frente para verificar se é T ou 90 graus
-  mover(forca_Baixa, forca_Baixa);
-  delay(150);
+  andarCM(3, forca_Baixa);
   // robo para
 
   pararMotores();
@@ -376,20 +344,27 @@ void T(int lado) {
   // verifica se esta tudo branco, se sim, ele volta e faz a curva
   if (lerTodosQTR() == 0 || lerTodosQTR() == 7000) {
 
-    mover(forca_Baixa * -1, forca_Baixa * -1);
-    delay(200);
+    andarCM(3, forca_Baixa * -1);
+
     pararMotores();
     delay(500);
 
     if (lado == ESQUERDA) {
       LED3.turnOn();
+
+      andarCM(2, forca);
       Curva90Graus(ESQUERDA, LIN);
       LED3.turnOff();
+      andarCM(7, forca * -1);
     }
     if (lado == DIREITA) {
+
+      andarCM(2, forca);
       LED4.turnOn();
       Curva90Graus(DIREITA, LIN);
       LED4.turnOff();
+      andarCM(7, forca * -1);
+      
     }
 
 
@@ -425,8 +400,18 @@ boolean Verde(int lado) {
     LED3.turnOn();
     Buzzer.turnOn();
 
+
+    andarCM(3, forca);
+    delay(300);
+
+    pararMotores();
+    delay(300);
+
     Curva90Graus(ESQUERDA, LIN);
     //curvaEncoder(65, 80, ESQUERDA);
+    delay(300);
+
+    andarCM(7, forca * -1);
 
     Buzzer.turnOff();
     LED3.turnOff();
@@ -436,14 +421,18 @@ boolean Verde(int lado) {
 
     LED4.turnOn();
     Buzzer.turnOn();
-  
+
+    andarCM(3, forca);
+    delay(300);
+    pararMotores();
+    delay(300);
+
     Curva90Graus(DIREITA, LIN);
-    
     //curvaEncoder(68, 80, DIREITA);
-    //pararMotores();
-    //delay(500);
-    //andarCM(2, forca * -1);
-    
+    delay(300);
+
+    andarCM(7, forca * -1);
+
     Buzzer.turnOff();
     LED4.turnOff();
   }
@@ -454,8 +443,13 @@ boolean Verde(int lado) {
   makes 45 degrees curve
 */
 
-void Curva45Graus(int lado, int tipo) {
-
+void Curva45Graus(int lado) {
+  IMU_read();
+  double valorpadrao = getYPR(0);
+  while(getYPR(0) == 180.0 || valorpadrao == getYPR(0)) {
+    IMU_read();
+  }
+  
 
   // inicializa a mpu
 
@@ -491,7 +485,7 @@ void Curva45Graus(int lado, int tipo) {
       Serial.println(getYPR(0));
     }
 
-    Serial.println("------------- FIM CURVA ESQUERDA ----------------");
+    Serial.println("------------- FIM CURVA ESQUERDA 45 GRAUS----------------");
 
     LED4.turnOff();
 
@@ -528,11 +522,10 @@ void Curva45Graus(int lado, int tipo) {
       Serial.println(getYPR(0));
     }
 
-    Serial.println("------------- FIM CURVA 45 GRAUS DIREITA ----------------");
+    Serial.println("------------- FIM CURVA DIREITA ----------------");
 
 
     LED4.turnOff();
-
   }
 
   pararMotores();
@@ -546,20 +539,24 @@ void Obstaculo(int lado) {
   // Primeria curva ===================================================
   pararMotores();
   delay(300);
-  Servo1.attach(servo1);
-  Servo1.write(135);
 
-  mover(forca_Baixa * -1, forca_Baixa * -1);
-  delay(100);
+//  mover(forca_Baixa * -1, forca_Baixa * -1);
+ // delay(100);
   pararMotores();
 
   if (lado == ESQUERDA) {
-    Curva90Graus(ESQUERDA, OBS);
+    curvaEncoder(60, 80, ESQUERDA);
+    //Curva90Graus(ESQUERDA, OBS);
   }
   if (lado == DIREITA) {
-    Curva90Graus(DIREITA, OBS);
+    
+    curvaEncoder(55, 120, DIREITA);
+    //Curva90Graus(DIREITA, OBS);
   }
 
+  while(1) {
+    pararMotores();
+  }
   // Anda pra frente até NÃO encontrar mais objeto
   if (lado == ESQUERDA) {
     //    while (lerSharpDigital(4) == 1) {
@@ -747,8 +744,7 @@ void Desvio(int lado) {
   init the claw
 */
 void inicioGarra() {
-  Servo1.attach(servo1);
-  Servo1.write(3);
+  Servo1.write(93);
 
   /*
     int pos = 0;
@@ -761,25 +757,28 @@ void inicioGarra() {
   makes rescue
 */
 void resgate() {
+  /*
   Buzzer.turnOn();
   delay(300);
   Buzzer.turnOff();
-  /*
-    mover(60,60);
-    delay(150);
-    pararMotores();
-    Servo1.write(80);
-    delay(1000);
-    Servo1.write(3);
-    delay(500);
   */
+    pararMotores();
+    Servo1.write(180);
+    delay(1000);
+    pararMotores();
+    Servo1.write(130);
+    delay(500);
+    Servo1.write(180);
+    delay(1000);
+    Servo1.write(93);
+    delay(500);
 }
 
 /*
   makes the drop of victim
 */
 void drop() {
-  Servo1.write(85);
+  Servo1.write(110);
   Servo2.write(180);
   delay(100);
   Servo2.write(90);

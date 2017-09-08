@@ -112,7 +112,7 @@ boolean verificaSilverTap() {
 */
 boolean verificaObstaculo() {
 
-  if (lerSharp(2) > 340 && lerSharp(2) < 450) {
+  if (lerSharp(2) > 330 && lerSharp(2) < 450) {
     return true;
   } else {
     return false;
@@ -123,9 +123,9 @@ boolean verificaObstaculo() {
   check if there T curve
 */
 int verificaT() {
-  if (lerQTR(1) >= preto && lerQTR(2) >= preto && lerQTR(3) >= preto && lerQTR(7) <= branco && lerQTR(8) <= branco) {
+  if (lerQTR(1) >= preto && lerQTR(2) >= preto && lerQTR(3) >= preto && lerQTR(7) <= branco  && lerQTR(8) <= branco) {
     return ESQUERDA;
-  } else if (lerQTR(6) >= preto && lerQTR(7) >= preto && lerQTR(8) >= preto && lerQTR(1) <= branco && lerQTR(2) <= branco) {
+  } else if (lerQTR(6) >= preto && lerQTR(7) >= preto && lerQTR(8) >= preto && lerQTR(2) <= branco && lerQTR(1) <= branco) {
     return DIREITA;
   }
   return IDDLE;
@@ -144,8 +144,9 @@ int verdedireita_somente = 0;
 boolean verificaVerde(int lado) {
 
   if (lado == ESQUERDA) {
+
   
-    if (analogRead(A15) > 650 && analogRead(A15) < 750) {
+    if (analogRead(A13) > 650 && analogRead(A13) < 820) {
       verdeesquerda++;
     } else {
       verdeesquerda = 0;
@@ -161,8 +162,9 @@ boolean verificaVerde(int lado) {
 
 
   if (lado == DIREITA) {
+
   
-    if (analogRead(A14) > 800 && analogRead(A14) < 900) {
+    if (analogRead(A14) > 700 && analogRead(A14) < 800) {
       verdedireita++;
     } else {
       verdedireita = 0;
@@ -185,11 +187,10 @@ boolean verificaVerde(int lado) {
 */
 boolean verificaRampa() {
 
-  //  if(lerSharpDigital(3) == 1 && lerSharpDigital(4) == 1 && lendoMpuAccel() > ANGULO_RAMPA) {
-  //  return true;
-  //}
+   if(lerSharp(1) <= 300 && lerSharp(3) <= 360 && getYPR(2) > ANGULO_RAMPA) {
+    return true;
+  }
   return false;
-
 }
 
 
@@ -216,26 +217,38 @@ boolean verificaAreaResgate() {
   check if there victim
 */
 boolean verificaVitima() {
-
-  if ((lerSharp(1) > 270) && (lerSharp(2) < 260)) {
+  if ((lerSharp(4) > 270) && (lerSharp(5) > 180) && (lerSharp(6) > 170) && (lerSharp(2) < 260)) {
+    return false;
+  }
+  if ((lerSharp(4) > 270) && (lerSharp(2) < 260)) {
     return true;
   }
   if ((lerSharp(5) > 180) && (lerSharp(2) < 260)) {
     return true;
-
   }
   if ((lerSharp(6) > 170) && (lerSharp(2) < 260)) {
     return true;
-
   }
   return false;
+}
+boolean confirmaVitima() {
+  Serial.print(lerSharp(4));
+  Serial.print(" || ");
+  Serial.print(lerSharp(5));
+  Serial.print(" || ");
+  Serial.println(lerSharp(6));
+
+  if ((lerSharp(4) > 270) && (lerSharp(5) > 180) && (lerSharp(6) > 170)) {
+    return false;
+  }
+  return true;
 }
 /*
   check if there victim in the left
 */
 boolean verificaVitimaEsquerda() {
 
-  if(lerSharp(1) > 330){
+  if (lerSharp(1) > 160) {
     return true;
   }
   return false;
@@ -244,5 +257,8 @@ boolean verificaVitimaEsquerda() {
   check if there victim in the right
 */
 boolean verificaVitimaDireita() {
+  if(lerSharp(3) > 160){
+    return true;
+  }
   return false;
 }

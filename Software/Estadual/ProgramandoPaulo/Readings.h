@@ -69,6 +69,8 @@ float getYPR(int n) {
   IMU_read();
   if (n == 0)
     return (ypr[n] * (180.0 / M_PI)) + 180;
+
+  return ypr[n] * (180.0 / M_PI);
 }
 
 /*
