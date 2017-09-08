@@ -273,19 +273,24 @@ void Rampa(boolean condicao) {
     delay(200);
     Buzzer.turnOn();
     //while (verificaSilverTap() == false && verificaEncruzilhada() == false) {
-    while(lerSharp(1) > 150) {
+    while(lerSharp(1) > 100) {
       
-      //Serial.println(lendoMpuAccel());
-      PID(0.2, 0, 0, 255, 3500);
+      Serial.println(lerSharp(1));
+      PID(0.8, 0, 0.0, 255, 3500);
 
       if (verificaGap() == true) {
         Serial.println("******************************* GAP *****************************");
-        while (verificaGap() == true) {
+        while (verificaGap() == true && lerSharp(1) > 100) {
           Gap(ST_RAMPA);
         }
       }
     }
-
+    pararMotores();
+    delay(1000);
+    andarCM(5, forca);
+    
+    LED3.turnOff();
+    
     Buzzer.turnOff();
     condicao = false;
     Resgate(true);

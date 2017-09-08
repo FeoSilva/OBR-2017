@@ -91,9 +91,9 @@ void loop() {
   //mover(70, 70);
   //Seguidor(true);
   if (Botao1.readValue() == HIGH) {
-    LED2.turnOn();
+    LED3.turnOn();
     delay(500);
-    Seguidor(true);
+    Rampa(true);
   }
   if (Botao2.readValue() == HIGH) {
     //Resgate(true);
