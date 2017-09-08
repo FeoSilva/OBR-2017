@@ -94,7 +94,7 @@ void curvaEncoder(double graus, int forcaCurvaEncoder, int sentido) {
   }
 
   if (sentido == ESQUERDA) {
-    moverEncoder(grausConvertido * -1, forcaCurvaEncoder * -1, forcaCurvaEncoder);
+    moverEncoder(grausConvertido, forcaCurvaEncoder * -1, forcaCurvaEncoder);
   }
 }
 
@@ -255,7 +255,7 @@ void Curva90Graus(int lado, int tipo) {
 
     pararMotores();
     delay(250);
-    andarCM(3, forca);
+    andarCM(2, forca);
     pararMotores();
     delay(500);
   }
@@ -348,7 +348,7 @@ void Curva90Graus(int lado, int tipo) {
       // andada para tras depois de fazer a curva
       pararMotores();
       delay(200);
-      andarCM(3, forca * -1);
+      andarCM(7, forca * -1);
       pararMotores();
       delay(500);
     }
@@ -772,6 +772,7 @@ void resgate() {
     pararMotores();
     Servo1.write(180);
     delay(1000);
+    pararMotores();
     Servo1.write(130);
     delay(500);
     Servo1.write(180);

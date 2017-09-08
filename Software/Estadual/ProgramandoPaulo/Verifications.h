@@ -145,7 +145,8 @@ boolean verificaVerde(int lado) {
 
   if (lado == ESQUERDA) {
 
-    if (analogRead(A15) > 760 && analogRead(A15) < 860) {
+  
+    if (analogRead(A15) > 650 && analogRead(A15) < 750) {
       verdeesquerda++;
     } else {
       verdeesquerda = 0;
@@ -247,7 +248,7 @@ boolean confirmaVitima() {
 */
 boolean verificaVitimaEsquerda() {
 
-  if (lerSharp(1) > 330) {
+  if (lerSharp(1) > 160) {
     return true;
   }
   return false;
@@ -256,5 +257,8 @@ boolean verificaVitimaEsquerda() {
   check if there victim in the right
 */
 boolean verificaVitimaDireita() {
+  if(lerSharp(3) > 160){
+    return true;
+  }
   return false;
 }

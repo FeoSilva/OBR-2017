@@ -319,10 +319,13 @@ double motorB; double motorC;
 
 unsigned long tempoinicial = millis();
 
-float KP = 0.25;
+float KP = 0.5;
 float KI = 0;
-float KD = 0.16; // Constante da Derivada
+float KD = 0.0; // Constante da Derivada
 
+
+//0.25
+// 0.16
 int branco = 100; // Força normal para seguir linha
 int preto = 550; // Força para rampa
 int silver_tape = 300; // luminosidade da fita silver_tape
