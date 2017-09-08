@@ -66,8 +66,8 @@ void Resgate(boolean condicao) {
           mover(forca * -1, forca);
           delay(350);
           resgate();
-        }
-        else {
+          }
+          else {
           Curva45Graus(ESQUERDA, OBS);
 
           pararMotores();
@@ -249,10 +249,52 @@ void Resgate(boolean condicao) {
 
       }
       condicao = false;
-      
+
     }
   }
 }
+
+void Rampa(boolean condicao) {
+
+  Serial.println("******************************* RAMPA *****************************");
+  LED2.turnOff();
+  while (condicao == true) {
+    LED3.turnOn();
+
+    pararMotores();
+    delay(300);
+    Servo1.attach(servo1);
+    Servo1.write(160);
+    pararMotores();
+    delay(600);
+
+    // famoso gás
+    mover(150, 150);
+    delay(200);
+    Buzzer.turnOn();
+    //while (verificaSilverTap() == false && verificaEncruzilhada() == false) {
+    while(lerSharp(1) > 150) {
+      
+      //Serial.println(lendoMpuAccel());
+      PID(0.2, 0, 0, 255, 3500);
+
+      if (verificaGap() == true) {
+        Serial.println("******************************* GAP *****************************");
+        while (verificaGap() == true) {
+          Gap(ST_RAMPA);
+        }
+      }
+    }
+
+    Buzzer.turnOff();
+    condicao = false;
+    Resgate(true);
+
+
+  }
+
+}
+
 
 /*
   makes the second ward
@@ -263,66 +305,19 @@ void Seguidor(boolean condicao) {
 
   while (condicao == true) {
 
-    /*if (verificaRampa() == true) {
-      Serial.println("******************************* RAMPA *****************************");
-      pararMotores();
-      delay(300);
-      Servo1.attach(servo1);
-      Servo1.write(40);
-      pararMotores();
-      delay(600);
 
-      // famoso gás
-      mover(150, 150);
-      delay(200);
-      Buzzer.turnOn();
-      while (verificaSilverTap() == false && verificaEncruzilhada() == false) {
-
-        //Serial.println(lendoMpuAccel());
-        PID(0.15, 0, 0, 230, 3500);
-
-        if (verificaRedutor() == true) {
-          Servo1.attach(servo1);
-          Servo1.write(90);
-          pararMotores();
-          delay(500);
-          mover(255, 255);
-          delay(700);
-          Servo1.attach(servo1);
-          Servo1.write(40);
-        }
-        if (verificaGap() == true) {
-          Serial.println("******************************* GAP *****************************");
-          while (verificaGap() == true) {
-            Gap(ST_RAMPA);
-          }
-        }
-      }
-
-      mover(255, 255);
-      delay(300);
-      mover(255, 255);
-      Servo1.attach(servo1);
-      Servo1.write(180);
-      delay(100);
-
-      Buzzer.turnOff();
-      while (true) {
-        Salao3(true);
-      }
-
-
-
-
-      }*/
+    if (verificaRampa() == true) {
+      condicao = false;
+      Rampa(true);
+    }
     // SEGUIDOR DE LINHA P.I.D.
     PID(KP, KI, KD, forcaPID, setPoint);
 
     //Serial.println("************** PID ***************");
 
-    //LED1.turnOn();
+    LED2.turnOn();
     //Buzzer.turnOff();
-    //lerTodosSensores(ALLSensor);
+    lerTodosSensores(ALLSensor);
 
 
     if (verificaEncruzilhada() == true) {
@@ -335,7 +330,7 @@ void Seguidor(boolean condicao) {
 
       for (int i = 0; i < 10; i++) { // make the calibration take about 10 seconds
         //Serial.println(analogRead(A15));
-        //lerTodosSensores(ALLSensor);
+        lerTodosSensores(ALLSensor);
         if (verificaVerde(ESQUERDA) == true && e == 0) {
           Serial.println("******************************* VERDE ESQUERDA *****************************");
           Verde(ESQUERDA);
@@ -357,35 +352,37 @@ void Seguidor(boolean condicao) {
     }
 
 
-    /*
-        if (verificaObstaculo() == true) {
-          obstaculo_count++;
-          Serial.println("************** OBSTÁCULO ***************");
-          if (obstaculo_count == 1) {
-            Obstaculo(ESQUERDA);
 
-          } else if (obstaculo_count == 2) {
-            Obstaculo(ESQUERDA);
+    if (verificaObstaculo() == true) {
+      obstaculo_count++;
+      Serial.println("************** OBSTÁCULO ***************");
+      if (obstaculo_count == 1) {
+        Obstaculo(DIREITA);
+      } else if (obstaculo_count == 2) {
+        Obstaculo(ESQUERDA);
+      } else if (obstaculo_count == 3) {
+        Desvio(ESQUERDA);
+      } else {
+        Obstaculo(ESQUERDA);
+      }
+    }
 
-            Servo1.attach(servo1);
-            Servo1.write(180);
-          } else if (obstaculo_count == 3) {
-            Desvio(ESQUERDA);
-          } else {
-            Obstaculo(ESQUERDA);
-          }
-        }
-    */
-/*
+
     if (verificaT() != IDDLE) {
       pararMotores();
       delay(500);
-      Serial.println("************** T ***************");
+
+      if (verificaT() == DIREITA) {
+        Serial.println("************** T - DIREITA ***************");
+      } else if (verificaT() == ESQUERDA) {
+        Serial.println("************** T - ESQUERDA ***************");
+      }
 
 
       int t = 0;
       for (int i = 0; i < 10; i++) { // make the calibration take about 10 seconds
 
+        lerTodosSensores(ALLSensor);
         if (verificaVerde(ESQUERDA) == true && t == 0) {
           Serial.println("******************************* VERDE ESQUERDA *****************************");
           Verde(ESQUERDA);
@@ -402,13 +399,25 @@ void Seguidor(boolean condicao) {
       }
       Serial.println("************** ACABOU O T ***************");
 
-    }*/
+    }
 
     if (verificaGap() == true) {
+      encoderEsquerdo.write(0);
       Serial.println("******************************* GAP *****************************");
-      while (verificaGap() == true) {
+      int g = 0;
+
+      while (verificaGap() == true && g == 0) {
         //lerTodosSensores();
         Gap(ST_PRINCIPAL);
+        if (encoderEsquerdo.read() >= 1500) {
+          g = 1;
+        }
+      }
+      pararMotores();
+      if (g == 1) {
+        while (verificaGap() == true) {
+          mover(forca * -1, forca * -1);
+        }
       }
       Serial.println("******************************* ACABOU O GAP *****************************");
     }

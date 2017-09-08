@@ -34,8 +34,8 @@ void ligarMotores() {
 //   Best Performance: both pins have interrupt capability
 //   Good Performance: only the first pin has interrupt capability
 //   Low Performance:  neither pin has interrupt capability
-#define encoderEsquerdoA 18
-#define encoderEsquerdoB 19
+#define encoderEsquerdoA 19
+#define encoderEsquerdoB 18
 
 Encoder encoderEsquerdo(encoderEsquerdoA, encoderEsquerdoB);
 
@@ -205,12 +205,8 @@ bool IMU_init() {
 unsigned long lastRun = 0;
 
 
-#define angulo_rampa_subida -21
-#define angulo_rampa_descida 20
-
-
 #define angulo_curva_direita 90
-#define angulo_curva_esquerda 78
+#define angulo_curva_esquerda 60
 
 #define angulo_curva_direita_45graus 45
 #define angulo_curva_esquerda_45graus 45
@@ -222,12 +218,12 @@ double gyroScale = 131;           // From datasheet
 double timeStep, time, timePrev;
 double arx, ary, arz, grx, gry, grz, gsx, gsy, gsz, rx, ry, rz;
 
-#define ANGULO_RAMPA 19
+#define ANGULO_RAMPA 11
 /************************ SERVOS ************************/
 // SERVO MOTORES PARA A GARRA - 180 graus - Servo 9g
 // PORTAS PWM
 #define servo1 8 // PORTA PWM
-#define servo2 7 // PORTA PWM
+#define servo2 11 // PORTA PWM
 
 
 Servo Servo1;
@@ -308,7 +304,7 @@ float distanciaEntreEixos = 14.4; // 144 mm
 float raioRoda = 3.5; // 35 mm
 float circunferenciaRoda = 2 * pi * raioRoda;
 
-int forcaPID = 45;
+int forcaPID = 65;
 int forcaRampa = 200;
 int forca_Curva = 120; // forca da curva no obstaculo
 int forca = 110;
@@ -319,9 +315,9 @@ double motorB; double motorC;
 
 unsigned long tempoinicial = millis();
 
-float KP = 0.5;
+float KP = 0.13;
 float KI = 0;
-float KD = 0.0; // Constante da Derivada
+float KD = 0.12; // Constante da Derivada
 
 
 //0.25
