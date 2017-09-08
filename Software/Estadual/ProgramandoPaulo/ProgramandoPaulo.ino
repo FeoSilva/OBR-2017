@@ -46,9 +46,9 @@ void setup() {
   debugEncoder();
   Servo1.attach(servo1);
   Servo1.write(93);
-  //Servo2.detach();
-  //Servo2.attach(servo2);
-  //Servo2.write(180);
+  Servo2.detach();
+  Servo2.attach(servo2);
+  Servo2.write(180);
 
   AlertaDeInicio();
   delay(500);
