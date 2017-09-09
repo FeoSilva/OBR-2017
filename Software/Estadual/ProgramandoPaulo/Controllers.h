@@ -18,7 +18,8 @@ int res = 0;
 void Resgate(boolean condicao) {
 
   while (condicao == true) {
-
+    LED4.turnOn();
+    LED3.turnOff();
     // INICIO ________________________________________________
 
     mover(forca, forca);
@@ -341,12 +342,14 @@ void Rampa(boolean condicao) {
     // famoso gás
     mover(150, 150);
     delay(200);
-    Buzzer.turnOn();
+    //Buzzer.turnOn();
     //while (verificaSilverTap() == false && verificaEncruzilhada() == false) {
     while (lerSharp(1) > 100) {
 
-      Serial.println(lerSharp(1));
-      PID(0.8, 0, 0.0, 255, 3500);
+      Serial.print(lerSharp(1));
+      Serial.print(" ---- ");
+      Serial.println(lerSharp(3));
+      PID(0.4, 0, 0.0, 255, 3500);
 
       if (verificaGap() == true) {
         Serial.println("******************************* GAP *****************************");
@@ -354,11 +357,16 @@ void Rampa(boolean condicao) {
           Gap(ST_RAMPA);
         }
       }
+
+    }
+    while(verificaSilverTap() == true) {
+      mover(forcaRampa, forcaRampa);
     }
     pararMotores();
-    delay(1000);
-    andarCM(5, forca);
-
+    delay(500);
+    andarCM(3, forca);
+    posicaoServoPadrao();
+    
     LED3.turnOff();
 
     Buzzer.turnOff();

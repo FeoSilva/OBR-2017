@@ -127,7 +127,18 @@ void debugEncoder() {
 }
 
 
-
+void posicaoServoPadrao() {
+  Servo1.attach(servo1);
+  Servo1.write(100);
+  delay(600);
+  Servo1.detach();
+  delay(200);
+  Servo2.attach(servo2);
+  Servo2.write(160);
+  delay(600);
+  Servo1.detach();
+  delay(200);
+}
 /*
   warning that the robot was started
 */
@@ -203,9 +214,8 @@ double anguloInicial = 0;
 double anguloFinal = 0;
 void Curva90Graus(int lado, int tipo) {
 
-  Servo1.detach();
-  //IMU_init();
-  
+  //Servo1.detach();
+
   IMU_read();
   double valorpadrao = getYPR(0);
   while (getYPR(0) == 180.0 || valorpadrao == getYPR(0)) {
@@ -331,7 +341,7 @@ void T(int lado) {
       Curva90Graus(DIREITA, LIN);
       LED4.turnOff();
       andarCM(7, forca * -1);
-      
+
     }
 
 
@@ -413,10 +423,10 @@ boolean Verde(int lado) {
 void Curva45Graus(int lado) {
   IMU_read();
   double valorpadrao = getYPR(0);
-  while(getYPR(0) == 180.0 || valorpadrao == getYPR(0)) {
+  while (getYPR(0) == 180.0 || valorpadrao == getYPR(0)) {
     IMU_read();
   }
-  
+
 
   // inicializa a mpu
 
@@ -507,8 +517,8 @@ void Obstaculo(int lado) {
   pararMotores();
   delay(300);
 
-//  mover(forca_Baixa * -1, forca_Baixa * -1);
- // delay(100);
+  //  mover(forca_Baixa * -1, forca_Baixa * -1);
+  // delay(100);
   pararMotores();
 
   if (lado == ESQUERDA) {
@@ -516,32 +526,37 @@ void Obstaculo(int lado) {
     //Curva90Graus(ESQUERDA, OBS);
   }
   if (lado == DIREITA) {
-    
+
     curvaEncoder(55, 120, DIREITA);
     //Curva90Graus(DIREITA, OBS);
   }
 
-  while(1) {
-    pararMotores();
-  }
   // Anda pra frente até NÃO encontrar mais objeto
   if (lado == ESQUERDA) {
-    //    while (lerSharpDigital(4) == 1) {
-    //    LED4.turnOn();
-    //  mover(forca, forca);
-    //}
+    while (lerSharp(3) >= 200) {
+      LED4.turnOn();
+      mover(forca, forca);
+    }
     LED4.turnOff();
   }
 
   if (lado == DIREITA) {
-    //    while (lerSharpDigital(3) == 1) {
-    //    LED4.turnOn();
-    //  mover(forca, forca);
-    //}
+    Serial.println(lerSharp(1));
+    while (lerSharp(1) >= 100) {
+      LED4.turnOn();
+      mover(forca, forca);
+    }
     LED4.turnOff();
+    Serial.println("Andei");
   }
   pararMotores();
   delay(300);
+
+  while (1) {
+    pararMotores();
+
+    lerTodosSensores(SHARPSensor);
+  }
 
   // Anda mais um pouco para fazer a segunda curva ===================
 
@@ -725,29 +740,29 @@ void inicioGarra() {
 */
 void resgate() {
 
-    Buzzer.turnOn();    
-    pararMotores();
-    Servo2.attach(servo2);
-    Servo2.write(180);
-    delay(500);
-    Servo2.detach();
-    delay(300);
-    Servo1.attach(servo1);
-    Servo1.write(180);
-    delay(1000);
-    Servo1.write(130);
-    delay(500);
-    Servo1.write(180);
-    delay(1000);
-    Servo1.write(100);
-    delay(500);
-    Servo1.detach();
-    Servo2.attach(servo2);
-    Servo2.write(160);
-    delay(500);
-    Servo2.detach();
-    delay(300);
-    Buzzer.turnOff();
+  Buzzer.turnOn();
+  pararMotores();
+  Servo2.attach(servo2);
+  Servo2.write(180);
+  delay(500);
+  Servo2.detach();
+  delay(300);
+  Servo1.attach(servo1);
+  Servo1.write(180);
+  delay(1000);
+  Servo1.write(130);
+  delay(500);
+  Servo1.write(180);
+  delay(1000);
+  Servo1.write(100);
+  delay(500);
+  Servo1.detach();
+  Servo2.attach(servo2);
+  Servo2.write(160);
+  delay(500);
+  Servo2.detach();
+  delay(300);
+  Buzzer.turnOff();
 }
 
 /*
