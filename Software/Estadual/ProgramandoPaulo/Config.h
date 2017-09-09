@@ -223,12 +223,11 @@ double arx, ary, arz, grx, gry, grz, gsx, gsy, gsz, rx, ry, rz;
 // SERVO MOTORES PARA A GARRA - 180 graus - Servo 9g
 // PORTAS PWM
 #define servo1 8 // PORTA PWM
-#define servo2 11 // PORTA PWM
+#define servo2 9 // PORTA PWM
 
 
 Servo Servo1;
 Servo Servo2;
-
 
 /************************ INTERFACE ************************/
 // Botões para iniciar ações
@@ -331,3 +330,5 @@ int offset = ((branco + preto) / 2); // media seguidor
 int setPoint = 3500;
 
 int auxGyro = 0;
+
+int base = 0;

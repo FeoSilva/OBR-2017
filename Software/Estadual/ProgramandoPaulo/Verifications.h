@@ -198,7 +198,7 @@ boolean verificaRampa() {
   check if there wall
 */
 boolean verificaParede() {
-  if ((lerSharp(2) > 550) && (lerSharp(4) > 200)) {
+  if ((lerSharp(2) > 230) && (lerSharp(4) > 220)) {
     return true;
   }
   return false;
@@ -217,28 +217,22 @@ boolean verificaAreaResgate() {
   check if there victim
 */
 boolean verificaVitima() {
-  if ((lerSharp(4) > 270) && (lerSharp(5) > 180) && (lerSharp(6) > 170) && (lerSharp(2) < 260)) {
+  if ((lerSharp(4) > 220) && (lerSharp(5) > 120) && (lerSharp(6) > 140) && (lerSharp(2) < 130)) {
     return false;
   }
-  if ((lerSharp(4) > 270) && (lerSharp(2) < 260)) {
+  if ((lerSharp(4) > 220) && (lerSharp(2) < 130)) {
     return true;
   }
-  if ((lerSharp(5) > 180) && (lerSharp(2) < 260)) {
+  if ((lerSharp(5) > 120) && (lerSharp(2) < 130)) {
     return true;
   }
-  if ((lerSharp(6) > 170) && (lerSharp(2) < 260)) {
+  if ((lerSharp(6) > 140) && (lerSharp(2) < 130)) {
     return true;
   }
   return false;
 }
 boolean confirmaVitima() {
-  Serial.print(lerSharp(4));
-  Serial.print(" || ");
-  Serial.print(lerSharp(5));
-  Serial.print(" || ");
-  Serial.println(lerSharp(6));
-
-  if ((lerSharp(4) > 270) && (lerSharp(5) > 180) && (lerSharp(6) > 170)) {
+  if ((lerSharp(4) > 220) && (lerSharp(5) > 120) && (lerSharp(6) > 140)) {
     return false;
   }
   return true;
@@ -248,7 +242,7 @@ boolean confirmaVitima() {
 */
 boolean verificaVitimaEsquerda() {
 
-  if (lerSharp(1) > 160) {
+  if (lerSharp(1) > 200) {
     return true;
   }
   return false;
@@ -257,7 +251,7 @@ boolean verificaVitimaEsquerda() {
   check if there victim in the right
 */
 boolean verificaVitimaDireita() {
-  if(lerSharp(3) > 160){
+  if(lerSharp(3) > 200){
     return true;
   }
   return false;

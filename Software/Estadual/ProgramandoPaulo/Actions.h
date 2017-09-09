@@ -199,46 +199,13 @@ void PID (double kP, double kI, double kD, double tP, int media) {
 
 };
 
-
-
-/*void Curva90Graus(int lado) {
-
-  if(lado == ESQUERDA) {
-
-      pararMotores();
-      delay(250);
-      mover(forca, forca);
-      delay(250);
-      mover(forca_Curva * -1, forca_Curva);
-      delay(650);
-      mover(forca * -1, forca * -1);
-      delay(250);
-
-  }
-  if(lado == DIREITA) {
-
-      pararMotores();
-      delay(300);
-      mover(forca, forca);
-      delay(250);
-      mover(forca_Curva, forca_Curva * -1);
-      delay(600);
-      mover(forca * -1, forca * -1);
-      delay(250);
-  }
-
-  }*/
-
-/*
-  makes 90 degree curve
-*/
-
 double anguloInicial = 0;
 double anguloFinal = 0;
 void Curva90Graus(int lado, int tipo) {
 
   Servo1.detach();
-
+  //IMU_init();
+  
   IMU_read();
   double valorpadrao = getYPR(0);
   while (getYPR(0) == 180.0 || valorpadrao == getYPR(0)) {
@@ -757,33 +724,49 @@ void inicioGarra() {
   makes rescue
 */
 void resgate() {
-  /*
-  Buzzer.turnOn();
-  delay(300);
-  Buzzer.turnOff();
-  */
+
+    Buzzer.turnOn();    
     pararMotores();
+    Servo2.attach(servo2);
+    Servo2.write(180);
+    delay(500);
+    Servo2.detach();
+    delay(300);
+    Servo1.attach(servo1);
     Servo1.write(180);
     delay(1000);
-    pararMotores();
     Servo1.write(130);
     delay(500);
     Servo1.write(180);
     delay(1000);
-    Servo1.write(93);
+    Servo1.write(100);
     delay(500);
+    Servo1.detach();
+    Servo2.attach(servo2);
+    Servo2.write(160);
+    delay(500);
+    Servo2.detach();
+    delay(300);
+    Buzzer.turnOff();
 }
 
 /*
   makes the drop of victim
 */
 void drop() {
+  Servo1.attach(servo1);
   Servo1.write(110);
+  Servo1.detach();
+  Servo2.attach(servo2);
   Servo2.write(180);
   delay(100);
   Servo2.write(90);
-  delay(1000);
+  delay(350);
   Servo2.write(45);
   delay(100);
-  Servo2.write(0);
+  Servo2.write(20);
+  delay(1000);
+  Servo2.write(180);
+  Servo2.detach();
+  pararMotores();
 }

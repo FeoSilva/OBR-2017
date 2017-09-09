@@ -32,7 +32,6 @@
 #include "Actions.h" // age
 #include "Controllers.h" // controla
 
-
 void setup() {
 
   // i2c setup
@@ -44,12 +43,17 @@ void setup() {
   // SETUP DE TUDO
   ligarMotores(); // ligar motores
   debugEncoder();
-  Servo1.attach(servo1);
-  Servo1.write(93);
-  Servo2.detach();
-  Servo2.attach(servo2);
-  Servo2.write(180);
 
+  Servo1.attach(servo1);
+  Servo1.write(100);
+  delay(1000);
+  Servo1.detach();
+  delay(1000);
+  Servo2.attach(servo2);
+  Servo2.write(160);
+  delay(1000);
+  Servo1.detach();
+  delay(1000);
   AlertaDeInicio();
   delay(500);
 
@@ -81,8 +85,8 @@ void setup() {
   IMU_init();
 
 }
-
 void loop() {
+
   //Serial.println(getYPR(0));
   //MPU6050Connect();
   //lendoMpuGyro();
@@ -97,14 +101,13 @@ void loop() {
   if (Botao2.readValue() == HIGH) {
     Resgate(true);
     //Verde(DIREITA);
-    
+
     curvaEncoder(60, 100, ESQUERDA);
     //Curva90Graus(ESQUERDA, LIN);
   }
   if (Botao4.readValue() == HIGH) {
     resgate();
-    //Curva90Graus(DIREITA, LIN);
   }
-  
+
 }
 

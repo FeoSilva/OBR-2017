@@ -17,7 +17,7 @@
 */
 bool IMU_read() {
   // if programming failed, don't try to do anything
-  if (!dmpReady) return;
+  if (!dmpReady) return false;
 
   // wait for MPU interrupt or extra packet(s) available
   while (!mpuInterrupt && fifoCount < packetSize) {

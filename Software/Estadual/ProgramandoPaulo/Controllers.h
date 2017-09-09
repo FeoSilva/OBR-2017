@@ -20,70 +20,65 @@ void Resgate(boolean condicao) {
   while (condicao == true) {
 
     // INICIO ________________________________________________
+
     mover(forca, forca);
     delay(300);
     pararMotores();
-    inicioGarra();
+    //inicioGarra();
     delay(200);
     Curva90Graus(ESQUERDA, OBS);
-    mover(forca * -1, forca * -1);
+    mover((forca + 20) * -1, (forca + 20) * -1);
     delay(1000);
     pararMotores();
     delay(100);
     andarCM(5, 60);
     pararMotores();
-    Curva90Graus(DIREITA, OBS);
+    delay(500);
+    //Curva90Graus(DIREITA, OBS);
+    curvaEncoder(45, 80, DIREITA);
     pararMotores();
     aux = 1;
 
     // VERIFICAÇÕES E AÇÕES DA PRIMEIRA RONDA___________________
     while (aux == 1) {
-      mover(60, 65);
+      mover(68, 60);
       if (verificaVitima() == true) {
         pararMotores();
-        //Curva45Graus(DIREITA);
         curvaEncoder(45, forca, DIREITA);
         pararMotores();
         delay(300);
         if (confirmaVitima() == true) {
           delay(300);
-          //Curva45Graus(ESQUERDA);
           curvaEncoder(45, forca, ESQUERDA);
           pararMotores();
           delay(300);
           resgate();
-          }
-          else {
-          //Curva45Graus(ESQUERDA, OBS);
-          mover(forca * -1, forca);
-          delay(350);
-          resgate();
-          }
-          else {
-          Curva45Graus(ESQUERDA, OBS);
-
+        } else {
+          base = 1;
+          curvaEncoder(45, forca, ESQUERDA);
           pararMotores();
           delay(100);
-          //Curva90Graus(ESQUERDA, OBS);
-          mover(forca * -1, forca);
-          delay(700);
+          Curva90Graus(ESQUERDA, OBS);
           pararMotores();
           delay(200);
-          andarCM(30, 60);
+          andarCM(40, 60);
           pararMotores();
           delay(100);
           Curva90Graus(ESQUERDA, OBS);
           pararMotores();
           delay(100);
-          mover(forca * -1, forca * -1);
+          mover((forca + 20) * -1, (forca + 20) * -1);
           delay(2000);
           pararMotores();
           res = 2;
         }
-        mover(60, 65);
+        mover(68, 60);
       }
 
       if (verificaVitimaEsquerda() == true) {
+        pararMotores();
+        mover(forca * -1, forca * -1);
+        delay(200);
         pararMotores();
         Curva90Graus(ESQUERDA, OBS);
         pararMotores();
@@ -91,22 +86,28 @@ void Resgate(boolean condicao) {
         delay(200);
         Curva90Graus(DIREITA, OBS);
         pararMotores();
-        mover(60, 60);
+        mover(68, 60);
       }
       if (verificaParede() == true) {
         pararMotores();
         Curva90Graus(ESQUERDA, OBS);
         pararMotores();
         delay(100);
-        andarCM(20, 60);
+        andarCM(35, 60);
         pararMotores();
+        if (verificaAreaResgate() == false) {
+          base = 2;
+          andarCM(10, 60);
+        }
         delay(100);
         Curva90Graus(ESQUERDA, OBS);
         pararMotores();
         delay(100);
         mover(forca * -1, forca * -1);
-        delay(300);
+        delay(1000);
         pararMotores();
+        mover(forca, forca);
+        delay(500);
         res = 2;
       }
 
@@ -114,109 +115,93 @@ void Resgate(boolean condicao) {
       // VERIFICAÇÕES E AÇÕES DA SEGUNDA RONDA_________________
 
       while (res == 2) {
-        mover(60, 60);
+        mover(68, 60);
         if (verificaVitima() == true) {
           pararMotores();
-          //Curva45Graus(DIREITA);
           curvaEncoder(45, forca, DIREITA);
           pararMotores();
           delay(300);
           if (confirmaVitima() == true) {
             delay(300);
-            //Curva45Graus(ESQUERDA);
             curvaEncoder(45, forca, ESQUERDA);
             pararMotores();
             delay(300);
             resgate();
           } else {
-            //Curva45Graus(ESQUERDA);
-            curvaEncoder(45, forca, ESQUERDA);
+            pararMotores();
+            mover(75 * -1, 60 * -1);
+            delay(300);
+            pararMotores();
+            //Curva45Graus(DIREITA, OBS);
+            mover(forca, forca * -1);
+            delay(410);
+            mover(forca, forca);
+            delay(500);
+            pararMotores();
             Curva90Graus(ESQUERDA, OBS);
+            mover(forca, forca);
+            delay(500);
             pararMotores();
-            delay(200);
-            andarCM(30, 60);
+            mover(forca, forca);
+            delay(300);
             pararMotores();
-            delay(100);
-            Curva90Graus(ESQUERDA, OBS);
-            pararMotores();
-            delay(100);
-            mover(forca * -1, forca * -1);
-            delay(2000);
-            pararMotores();
-            res = 2;
+            andarCM(5, -60);
+            mover(150, 150);
+            drop();
+            res = 6;
           }
-          mover(60, 65);
+          mover(68, 60);
         }
 
         if (verificaVitimaEsquerda() == true) {
           pararMotores();
+          mover(forca * -1, forca * -1);
+          delay(200);
+          pararMotores();
           Curva90Graus(ESQUERDA, OBS);
           pararMotores();
           resgate();
           delay(200);
           Curva90Graus(DIREITA, OBS);
           pararMotores();
-          mover(60, 60);
+          mover(68, 60);
         }
         if (verificaVitimaDireita() == true) {
           pararMotores();
-          Curva90Graus(ESQUERDA, OBS);
+          mover(forca * -1, forca * -1);
+          delay(200);
+          pararMotores();
+          Curva90Graus(DIREITA, OBS);
           pararMotores();
           resgate();
           delay(200);
-          Curva90Graus(DIREITA, OBS);
+          Curva90Graus(ESQUERDA, OBS);
           pararMotores();
-          mover(60, 60);
+          mover(68, 60);
         }
         if (verificaParede() == true) {
           pararMotores();
-          //Curva90Graus(DIREITA, OBS);
-          mover(forca, forca * -1);
-          delay(820);
+          delay(500);
+          andarCM(8, forca * -1);
+          pararMotores();
+          delay(500);
+          Curva90Graus(DIREITA, OBS);
           pararMotores();
           delay(100);
-          mover(60, 60);
+          mover(68, 60);
           res = 3;
         }
 
         // RESGATE _______________________________________________
         while (res == 3) {
+          mover(68, 60);
           if (verificaParede() == true) {
-            pararMotores();
-            //Curva90Graus(DIREITA, OBS);
-            mover(forca, forca * -1);
-            delay(820);
-            mover(forca * -1, forca * -1);
-            delay(700);
-            mover(60, 60);
-            res++;
-          }
-        }
-        while ((res >= 4) && (res <= 5)) {
-          if (verificaParede() == true) {
-            pararMotores();
-            //Curva90Graus(DIREITA, OBS);
-            mover(forca, forca * -1);
-            delay(820);
-            mover(forca * -1, forca * -1);
-            delay(700);
-            mover(60, 60);
-            res++;
-          }
-          /*
-            if (verificaVitimaDireita() == true) {
-            pararMotores();
             Curva90Graus(DIREITA, OBS);
-            mover(forca, forca * -1);
-            delay(820);
-            pararMotores();
-            resgate();
+            mover((forca + 20) * -1, (forca + 20) * -1);
             delay(1000);
-            Curva90Graus(ESQUERDA, OBS);
             pararMotores();
-            mover(60, 60);
-            }*/
-
+            res++;
+          }
           if (verificaAreaResgate() == true) {
             pararMotores();
             mover(75 * -1, 60 * -1);
@@ -234,22 +219,110 @@ void Resgate(boolean condicao) {
             pararMotores();
             mover(forca, forca);
             delay(300);
+            pararMotores();
+            andarCM(5, -60);
+            mover(150, 150);
             drop();
             res = 6;
           }
         }
-        if (res >= 6) {
-          while (1) {
-            pararMotores();
-          }
-        }
-
       }
-      condicao = false;
+      while ((res == 4)) {
+        mover(68, 60);
+        if (verificaParede() == true) {
+          pararMotores();
+          Curva90Graus(DIREITA, OBS);
+          mover((forca + 20) * -1, (forca + 20) * -1);
+          delay(700);
+          res++;
+        }
+        if (verificaVitimaDireita() == true) {
+          pararMotores();
+          Curva90Graus(DIREITA, OBS);
+          pararMotores();
+          resgate();
+          delay(1000);
+          Curva90Graus(ESQUERDA, OBS);
+          pararMotores();
+          mover(60, 60);
+        }
+        if (verificaAreaResgate() == true && base >= 1) {
+          pararMotores();
+          delay(300);
+          resgate();
+        }
+        if (verificaAreaResgate() == true && base == 0) {
+          pararMotores();
+          mover(75 * -1, 60 * -1);
+          delay(300);
+          pararMotores();
+          //Curva45Graus(DIREITA, OBS);
+          mover(forca, forca * -1);
+          delay(410);
+          mover(forca, forca);
+          delay(500);
+          pararMotores();
+          Curva90Graus(ESQUERDA, OBS);
+          mover(forca, forca);
+          delay(500);
+          pararMotores();
+          mover(forca, forca);
+          delay(300);
+          pararMotores();
+          andarCM(5, -60);
+          mover(150, 150);
+          drop();
+          res = 6;
+        }
+      }
+      while ((res == 5)) {
+        mover(68, 60);
+        if (verificaVitimaDireita() == true) {
+          pararMotores();
+          Curva90Graus(DIREITA, OBS);
+          pararMotores();
+          resgate();
+          delay(1000);
+          Curva90Graus(ESQUERDA, OBS);
+          pararMotores();
+        }
+        if (verificaAreaResgate() == true) {
+          pararMotores();
+          mover(75 * -1, 60 * -1);
+          delay(300);
+          pararMotores();
+          //Curva45Graus(DIREITA, OBS);
+          mover(forca, forca * -1);
+          delay(410);
+          mover(forca, forca);
+          delay(500);
+          pararMotores();
+          Curva90Graus(ESQUERDA, OBS);
+          mover(forca, forca);
+          delay(500);
+          pararMotores();
+          mover(forca, forca);
+          delay(300);
+          pararMotores();
+          andarCM(5, -60);
+          mover(150, 150);
+          drop();
+          res = 6;
+        }
+      }
+      if (res >= 6) {
+        while (1) {
+          pararMotores();
+        }
+      }
 
     }
+    condicao = false;
+
   }
 }
+
+
 
 void Rampa(boolean condicao) {
 
@@ -270,8 +343,8 @@ void Rampa(boolean condicao) {
     delay(200);
     Buzzer.turnOn();
     //while (verificaSilverTap() == false && verificaEncruzilhada() == false) {
-    while(lerSharp(1) > 100) {
-      
+    while (lerSharp(1) > 100) {
+
       Serial.println(lerSharp(1));
       PID(0.8, 0, 0.0, 255, 3500);
 
@@ -285,9 +358,9 @@ void Rampa(boolean condicao) {
     pararMotores();
     delay(1000);
     andarCM(5, forca);
-    
+
     LED3.turnOff();
-    
+
     Buzzer.turnOff();
     condicao = false;
     Resgate(true);
@@ -382,8 +455,8 @@ void Seguidor(boolean condicao) {
       }
 
 
-          int t = 0;
-          for (int i = 0; i < 10; i++) { // make the calibration take about 10 seconds
+      int t = 0;
+      for (int i = 0; i < 10; i++) { // make the calibration take about 10 seconds
 
 
         lerTodosSensores(ALLSensor);
@@ -398,10 +471,10 @@ void Seguidor(boolean condicao) {
         }
       }
 
-          if (t == 0) {
-            T(verificaT());
-          }
-          Serial.println("************** ACABOU O T ***************");
+      if (t == 0) {
+        T(verificaT());
+      }
+      Serial.println("************** ACABOU O T ***************");
 
 
     }
